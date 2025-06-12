@@ -5,8 +5,11 @@ from contextgem import Document, DocumentLLM, Image, NumericalConcept, image_to_
 from typing import Union
 from dotenv import load_dotenv
 from jsonobjectconept_schemas.castrol import report_header_concept, oil_analysis_results_concept
-
 load_dotenv()
+
+
+
+
 
 doc_image = Image(mime_type="image/jpeg", base64_data=image_to_base64("images\\castrol_sample-images-0.jpg"))
 doc = Document(
