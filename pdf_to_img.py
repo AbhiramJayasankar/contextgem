@@ -1,5 +1,5 @@
 import os
-import fitz  # PyMuPDF
+import pymupdf  # Using the modern 'pymupdf' import for PyMuPDF
 
 def convert_pdfs_to_images(input_dir: str, output_dir: str, zoom_factor: int = 1):
     """
@@ -13,16 +13,21 @@ def convert_pdfs_to_images(input_dir: str, output_dir: str, zoom_factor: int = 1
         output_dir (str): The absolute or relative path to the directory where
                           the output images will be saved.
         zoom_factor (int): The factor by which to increase the image resolution.
-                           A value of 1 is standard (96 DPI). A value of 2
-                           doubles the resolution (192 DPI), and so on.
+                           A value of 1 is standard (72 DPI). A value of 2
+                           doubles the resolution (144 DPI), and so on.
     """
-    print(f"Starting PDF conversion process...")
+    # --- Validate input directory ---
+    if not os.path.isdir(input_dir):
+        print(f"Error: Input directory '{os.path.abspath(input_dir)}' not found or is not a directory.")
+        return
+
+    print("Starting PDF conversion process...")
     print(f"Input directory: '{os.path.abspath(input_dir)}'")
     print(f"Output directory: '{os.path.abspath(output_dir)}'")
-    print(f"Image Zoom Factor: {zoom_factor}x (Resulting DPI: {96 * zoom_factor})")
+    print(f"Image Zoom Factor: {zoom_factor}x (Resulting DPI: {72 * zoom_factor})")
 
     # The transformation matrix is created directly from the zoom factor.
-    matrix = fitz.Matrix(zoom_factor, zoom_factor)
+    matrix = pymupdf.Matrix(zoom_factor, zoom_factor)
     
     # Traverse the input directory recursively
     for dirpath, _, filenames in os.walk(input_dir):
@@ -50,7 +55,7 @@ def convert_pdfs_to_images(input_dir: str, output_dir: str, zoom_factor: int = 1
 
                     # --- Open the PDF and convert pages to images ---
                     
-                    with fitz.open(pdf_full_path) as doc:
+                    with pymupdf.open(pdf_full_path) as doc:
                         if not doc.page_count:
                             print(f"  -> Warning: PDF '{filename}' has no pages. Skipping.")
                             continue
@@ -91,17 +96,18 @@ if __name__ == "__main__":
     output_directory = "images"
     
     # Set the desired zoom factor.
-    # 1 = standard resolution (96 DPI)
-    # 2 = double resolution (192 DPI)
-    # 3 = triple resolution (288 DPI), etc.
-    resolution_zoom = 3
+    # 1 = standard resolution (72 DPI)
+    # 2 = double resolution (144 DPI)
+    # 3 = triple resolution (216 DPI), etc.
+    resolution_zoom = 2
 
     # Create dummy files and folders for demonstration if they don't exist
     if not os.path.exists(input_directory):
         print("Creating dummy source directory and PDF for demonstration.")
         os.makedirs(os.path.join(input_directory, "projects"))
         try:
-            doc = fitz.new()
+            # Use the modern pymupdf.Document() to create a new PDF
+            doc = pymupdf.Document()  
             page = doc.new_page()
             page.insert_text((50, 72), "This is a sample PDF.")
             doc.save(os.path.join(input_directory, "report.pdf"))

@@ -4,41 +4,114 @@ from contextgem import Document, DocumentLLM, Image, image_to_base64
 from dotenv import load_dotenv
 load_dotenv()
 
-lab_name="enos" #castrol/chevron/enos/gulf/total/tribocare/viswa/vps
+lab_name="mobil" #castrol/chevron/enos/gulf/total/tribocare/viswa/vps/nof/mobil
 
 if lab_name == "castrol":
     from jsonobjectconept_schemas.castrol import report_header_concept, oil_analysis_results_concept
-    image_path = "images\\castrol\\Castrol LO report\\page_1.png"
+    image_folder_path = "images\\castrol\\Castrol LO report"
+    images = []
+    for filename in os.listdir(image_folder_path):
+        if filename.lower().endswith((".png", ".jpg", ".jpeg", ".bmp")):
+            image_path = os.path.join(image_folder_path, filename)
+            doc_image = Image(mime_type="image/jpeg", base64_data=image_to_base64(image_path))
+            images.append(doc_image)
+    doc = Document(images=images)
+
 elif lab_name == "chevron":
     from jsonobjectconept_schemas.chevron import report_header_concept, oil_analysis_results_concept
-    image_path = "images\\chevron\\Chevron LO report\\page_1.png"
+    image_folder_path = "images\\chevron\\Chevron LO report"
+    images = []
+    for filename in os.listdir(image_folder_path):
+        if filename.lower().endswith((".png", ".jpg", ".jpeg", ".bmp")):
+            image_path = os.path.join(image_folder_path, filename)
+            doc_image = Image(mime_type="image/jpeg", base64_data=image_to_base64(image_path))
+            images.append(doc_image)
+    doc = Document(images=images)
+
 elif lab_name == "enos":
     from jsonobjectconept_schemas.enos import report_header_concept, oil_analysis_results_concept
-    image_path = "images\\enos\\ENOS LO report\\page_1.png"
+    image_folder_path = "images\\enos\\ENOS LO report"
+    images = []
+    for filename in os.listdir(image_folder_path):
+        if filename.lower().endswith((".png", ".jpg", ".jpeg", ".bmp")):
+            image_path = os.path.join(image_folder_path, filename)
+            doc_image = Image(mime_type="image/jpeg", base64_data=image_to_base64(image_path))
+            images.append(doc_image)
+    doc = Document(images=images)
 elif lab_name == "gulf":
     from jsonobjectconept_schemas.gulf import report_header_concept, oil_analysis_results_concept
-    image_path = "images\\gulf\\Gulf LO report\\page_1.png"
+    image_folder_path = "images\\gulf\\Gulf LO report"
+    images = []
+    for filename in os.listdir(image_folder_path):
+        if filename.lower().endswith((".png", ".jpg", ".jpeg", ".bmp")):
+            image_path = os.path.join(image_folder_path, filename)
+            doc_image = Image(mime_type="image/jpeg", base64_data=image_to_base64(image_path))
+            images.append(doc_image)
+    doc = Document(images=images)
 elif lab_name == "total":
     from jsonobjectconept_schemas.total import report_header_concept, oil_analysis_results_concept
-    image_path = "images\\total\\Total LO report\\page_1.png"
+    image_folder_path = "images\\total\\Total LO report"
+    images = []
+    for filename in os.listdir(image_folder_path):
+        if filename.lower().endswith((".png", ".jpg", ".jpeg", ".bmp")):
+            image_path = os.path.join(image_folder_path, filename)
+            doc_image = Image(mime_type="image/jpeg", base64_data=image_to_base64(image_path))
+            images.append(doc_image)
+    doc = Document(images=images)
 elif lab_name == "tribocare":
     from jsonobjectconept_schemas.tribocare import report_header_concept, oil_analysis_results_concept
-    image_path = "images\\tribocare\\Tribocare LO report\\page_1.png"
+    image_folder_path = "images\\tribocare\\Tribocare LO report"
+    images = []
+    for filename in os.listdir(image_folder_path):
+        if filename.lower().endswith((".png", ".jpg", ".jpeg", ".bmp")):
+            image_path = os.path.join(image_folder_path, filename)
+            doc_image = Image(mime_type="image/jpeg", base64_data=image_to_base64(image_path))
+            images.append(doc_image)
+    doc = Document(images=images)
 elif lab_name == "viswa":
     from jsonobjectconept_schemas.viswa import report_header_concept, oil_analysis_results_concept
-    image_path = "images\\viswa\\Viswa LO report\\page_1.png"
+    image_folder_path = "images\\viswa\\Viswa LO report"
+    images = []
+    for filename in os.listdir(image_folder_path):
+        if filename.lower().endswith((".png", ".jpg", ".jpeg", ".bmp")):
+            image_path = os.path.join(image_folder_path, filename)
+            doc_image = Image(mime_type="image/jpeg", base64_data=image_to_base64(image_path))
+            images.append(doc_image)
+    doc = Document(images=images)
 elif lab_name == "vps":
     from jsonobjectconept_schemas.vps import report_header_concept, oil_analysis_results_concept
-    image_path = "images\\vps\\VPS LO report\\page_1.png"
+    image_folder_path = "images\\vps\\VPS LO report"
+    images = []
+    for filename in os.listdir(image_folder_path):
+        if filename.lower().endswith((".png", ".jpg", ".jpeg", ".bmp")):
+            image_path = os.path.join(image_folder_path, filename)
+            doc_image = Image(mime_type="image/jpeg", base64_data=image_to_base64(image_path))
+            images.append(doc_image)
+    doc = Document(images=images)
+elif lab_name == "nof":
+    from jsonobjectconept_schemas.nof import report_header_concept, oil_analysis_results_concept
+    image_folder_path = "images\\nof\\Nof LO report"
+    images = []
+    for filename in os.listdir(image_folder_path):
+        if filename.lower().endswith((".png", ".jpg", ".jpeg", ".bmp")):
+            image_path = os.path.join(image_folder_path, filename)
+            doc_image = Image(mime_type="image/jpeg", base64_data=image_to_base64(image_path))
+            images.append(doc_image)
+    doc = Document(images=images)
+elif lab_name == "mobil":
+    from jsonobjectconept_schemas.mobil import report_header_concept, oil_analysis_results_concept
+    image_folder_path = "images\\mobil\\Mobil LO report"
+    images = []
+    for filename in os.listdir(image_folder_path):
+        if filename.lower().endswith((".png", ".jpg", ".jpeg", ".bmp")):
+            image_path = os.path.join(image_folder_path, filename)
+            doc_image = Image(mime_type="image/jpeg", base64_data=image_to_base64(image_path))
+            images.append(doc_image)
+    doc = Document(images=images)
 else:
     raise ValueError("Invalid lab_name specified. Please choose from castrol, chevron, enos, gulf, total, tribocare, viswa, or vps.")
 
 
-
-doc_image = Image(mime_type="image/jpeg", base64_data=image_to_base64(image_path))
-doc = Document(
-    images=[doc_image],  
-)
 
 doc.add_concepts([report_header_concept,oil_analysis_results_concept])
 
@@ -52,7 +125,7 @@ vlm_1 = DocumentLLM(
 
 vlm_2 = DocumentLLM(
     model="gemini/gemini-2.0-flash",
-    # model="gemini/gemini-2.5-flash-preview-05-20",
+    #model="gemini/gemini-2.5-flash-preview-05-20",
     api_key=os.getenv("GOOGLE_API_KEY"),
     role="extractor_vision",
 )
