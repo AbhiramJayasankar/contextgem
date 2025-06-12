@@ -4,7 +4,7 @@ from contextgem import Document, DocumentLLM, Image, image_to_base64
 from dotenv import load_dotenv
 load_dotenv()
 
-lab_name="" #castrol/chevron/enos/gulf/total/tribocare/viswa/vps
+lab_name="enos" #castrol/chevron/enos/gulf/total/tribocare/viswa/vps
 
 if lab_name == "castrol":
     from jsonobjectconept_schemas.castrol import report_header_concept, oil_analysis_results_concept
@@ -34,7 +34,7 @@ else:
     raise ValueError("Invalid lab_name specified. Please choose from castrol, chevron, enos, gulf, total, tribocare, viswa, or vps.")
 
 
-image_path = "images\\vps\\VPS LO report\\page_1.png"
+
 doc_image = Image(mime_type="image/jpeg", base64_data=image_to_base64(image_path))
 doc = Document(
     images=[doc_image],  
