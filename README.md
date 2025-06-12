@@ -2,7 +2,7 @@
 
 ## Project Status
 
-**Status:** 1/8 schemas parsed 
+**Status:** 8/8 schemas parsed 
 
 ## Requirements
 Install dependencies using:
