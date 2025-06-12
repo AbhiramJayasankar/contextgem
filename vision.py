@@ -8,28 +8,30 @@ lab_name="" #castrol/chevron/enos/gulf/total/tribocare/viswa/vps
 
 if lab_name == "castrol":
     from jsonobjectconept_schemas.castrol import report_header_concept, oil_analysis_results_concept
+    image_path = "images\\castrol\\Castrol LO report\\page_1.png"
 elif lab_name == "chevron":
     from jsonobjectconept_schemas.chevron import report_header_concept, oil_analysis_results_concept
+    image_path = "images\\chevron\\Chevron LO report\\page_1.png"
 elif lab_name == "enos":
     from jsonobjectconept_schemas.enos import report_header_concept, oil_analysis_results_concept
+    image_path = "images\\enos\\ENOS LO report\\page_1.png"
 elif lab_name == "gulf":
     from jsonobjectconept_schemas.gulf import report_header_concept, oil_analysis_results_concept
+    image_path = "images\\gulf\\Gulf LO report\\page_1.png"
 elif lab_name == "total":
     from jsonobjectconept_schemas.total import report_header_concept, oil_analysis_results_concept
+    image_path = "images\\total\\Total LO report\\page_1.png"
 elif lab_name == "tribocare":
     from jsonobjectconept_schemas.tribocare import report_header_concept, oil_analysis_results_concept
+    image_path = "images\\tribocare\\Tribocare LO report\\page_1.png"
 elif lab_name == "viswa":
     from jsonobjectconept_schemas.viswa import report_header_concept, oil_analysis_results_concept
+    image_path = "images\\viswa\\Viswa LO report\\page_1.png"
 elif lab_name == "vps":
     from jsonobjectconept_schemas.vps import report_header_concept, oil_analysis_results_concept
+    image_path = "images\\vps\\VPS LO report\\page_1.png"
 else:
     raise ValueError("Invalid lab_name specified. Please choose from castrol, chevron, enos, gulf, total, tribocare, viswa, or vps.")
-
-
-
-
-
-
 
 
 image_path = "images\\vps\\VPS LO report\\page_1.png"

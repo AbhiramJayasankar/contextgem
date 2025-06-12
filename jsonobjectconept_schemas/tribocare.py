@@ -6,6 +6,7 @@ report_header_concept = JsonObjectConcept(
     llm_role="extractor_vision",
     description="Extract key identification, metadata, and summary comments from the oil analysis report.",
     structure={
+        "report_provider_company": Union[int, float, str, None],
         "customer_name": Union[int, float, str, None],
         "asset_description": Union[int, float, str, None],
         "manufacturer_details": {

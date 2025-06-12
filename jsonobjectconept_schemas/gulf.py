@@ -1,11 +1,10 @@
 from contextgem import JsonObjectConcept
 from typing import Union, List
 
-# Updated report_header_concept with the new standardized structure
 report_header_concept = JsonObjectConcept(
-    name="Lubmarine_Report_Header",
+    name="Gulf_Lubricant_Report_Header",
     llm_role="extractor_vision",
-    description="Extracts key header information from the Lubmarine report using a standardized structure.",
+    description="Extracts key customer and equipment information from the top section of the Gulf Lubricant Condition report.",
     structure={
         "report_provider_company": Union[int, float, str, None],
         "overall_lubricant_condition": Union[int, float, str, None],
@@ -24,12 +23,11 @@ report_header_concept = JsonObjectConcept(
     },
 )
 
-# The existing oil_analysis_results_concept remains the same
 oil_analysis_results_concept = JsonObjectConcept(
-    name="Lubmarine_Analysis_Results",
+    name="Gulf_Lubricant_Analysis_Results",
     llm_role="extractor_vision",
-    description="""Each column in the DATA table is a separate sample; extract the data for each.
-    The Symptoms and Comments should be extracted into the summary object.
+    description="""Each column in the results table is a separate sample; extract the data for each.
+    The recommendation at the bottom should be extracted into the recommendations object.
     Leave empty cells as null.""",
     add_justifications=False,
     add_references=False,
@@ -37,59 +35,54 @@ oil_analysis_results_concept = JsonObjectConcept(
     justification_depth="brief",
     justification_max_sents=2,
     structure={
-        "summary": {
-            "symptoms": Union[int, float, str, None],
-            "comments": Union[int, float, str, None],
-        },
         "samples": [
             {
-                "sample_details": {
-                    "status": Union[int, float, str, None],
+                "sample_information": {
                     "sample_no": Union[int, float, str, None],
+                    "bottle_no": Union[int, float, str, None],
                     "date_received": Union[int, float, str, None],
-                    "date_reported": Union[int, float, str, None],
+                    "sampled_date": Union[int, float, str, None],
+                    "port_of_landing": Union[int, float, str, None],
                     "oil_on_label": Union[int, float, str, None],
-                    "purifier_filter": Union[int, float, str, None],
-                    "equipment_life": Union[int, float, str, None],
-                    "oil_life": Union[int, float, str, None],
-                    "top_up_volume": Union[int, float, str, None],
+                    "fuel_in_use_sulphur_percent": Union[int, float, str, None],
+                    "total_frame_running_hours": Union[int, float, str, None],
+                    "lubricant_hours": Union[int, float, str, None],
+                    "lubricant_condition": Union[int, float, str, None],
                 },
                 "analysis": {
-                    "visco_40c_mm2s": Union[int, float, str, None],
-                    "visco_100c_mm2s": Union[int, float, str, None],
-                    "water_content_percent_mass": Union[int, float, str, None],
-                    "tbn_mgkoh_g": Union[int, float, str, None],
-                    "pq_index": Union[int, float, str, None],
-                    "oxidation_by_ftir_abs_cm": Union[int, float, str, None],
+                    "viscosity_cst_mm2_s": Union[int, float, str, None],
+                    "viscosity_index": Union[int, float, str, None],
+                    "water_percent_wt": Union[int, float, str, None],
+                    "an_mgkoh_g": Union[int, float, str, None],
+                    "pq_index_2ml": Union[int, float, str, None],
+                    "iso_code": Union[int, float, str, None],
+                    "greater_than_4_um": Union[int, float, str, None],
+                    "greater_than_6_um": Union[int, float, str, None],
+                    "greater_than_14_um": Union[int, float, str, None],
                 },
-                "spectro_analysis": {
-                    "wear_elements": {
-                        "iron_fe": Union[int, float, str, None],
-                        "chromium_cr": Union[int, float, str, None],
-                        "molybdenum_mo": Union[int, float, str, None],
-                        "copper_cu": Union[int, float, str, None],
-                        "lead_pb": Union[int, float, str, None],
-                        "silver_ag": Union[int, float, str, None],
-                        "tin_sn": Union[int, float, str, None],
-                        "aluminum_al": Union[int, float, str, None],
-                    },
-                    "contaminants": {
-                        "nickel_ni": Union[int, float, str, None],
-                        "vanadium_v": Union[int, float, str, None],
-                        "silicon_si": Union[int, float, str, None],
-                        "sodium_na": Union[int, float, str, None],
-                        "boron_b": Union[int, float, str, None],
-                        "potassium_k": Union[int, float, str, None],
-                        "magnesium_mg": Union[int, float, str, None],
-                    },
-                    "other_metals": {
-                        "phosphorus_p": Union[int, float, str, None],
-                        "zinc_zn": Union[int, float, str, None],
-                        "barium_ba": Union[int, float, str, None],
-                        "calcium_ca": Union[int, float, str, None],
-                    },
+                "wear_elements_ppm": {
+                    "aluminum_al_ppm": Union[int, float, str, None],
+                    "chromium_cr_ppm": Union[int, float, str, None],
+                    "copper_cu_ppm": Union[int, float, str, None],
+                    "iron_fe_ppm": Union[int, float, str, None],
+                    "lead_pb_ppm": Union[int, float, str, None],
+                    "tin_sn_ppm": Union[int, float, str, None],
+                },
+                "other_elements_ppm": {
+                    "boron_b_ppm": Union[int, float, str, None],
+                    "calcium_ca_ppm": Union[int, float, str, None],
+                    "silicon_si_ppm": Union[int, float, str, None],
+                    "molybdenum_mo_ppm": Union[int, float, str, None],
+                    "nickel_ni_ppm": Union[int, float, str, None],
+                    "silver_ag_ppm": Union[int, float, str, None],
+                    "vanadium_v_ppm": Union[int, float, str, None],
+                    "lithium_li_ppm": Union[int, float, str, None],
+                    "barium_ba_ppm": Union[int, float, str, None],
                 },
             }
         ],
+        "recommendations": {
+            "text": Union[int, float, str, None],
+        }
     },
 )
