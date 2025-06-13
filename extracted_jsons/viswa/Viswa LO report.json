@@ -1,0 +1,181 @@
+{
+    "report_header": {
+        "report_provider_company": "VISWA LAB",
+        "overall_oil_condition": "NORMAL",
+        "customer_details": {
+            "vessel": "MAERSK CAYMAN",
+            "imo_no": "9786164",
+            "customer": "SYNERGY DENMARK AS",
+            "equipment": "STEERING GEAR 2",
+            "sampling_point": null,
+            "brand_and_grade": "TOTAL-VISGA 46"
+        },
+        "po_number": null,
+        "comments": "Used oil analysis results shows all the parameters are within the acceptable limits. The oil can be put to continued use.",
+        "signed_by": "Sandeep C",
+        "lab_address": "Viswa Lab Singapore, 80 Tagore Lane, Singapore 787501"
+    },
+    "oil_analysis_results": {
+        "samples": [
+            {
+                "general_details": {
+                    "report_id": "LOS250221587",
+                    "bottle_identification_no": "L0173980",
+                    "sampling_date": "14-Feb-2025",
+                    "sampling_point": "NO INFORMATION",
+                    "report_date": "27-Feb-2025",
+                    "place": "JOHORE BAHR",
+                    "unit_usage": "26119.00",
+                    "total_lubricant_hours": null,
+                    "oil_added_ltrs": null,
+                    "oil_condition_rating": "Normal"
+                },
+                "wear_ppm": {
+                    "iron_ppm": 63,
+                    "copper_ppm": 14,
+                    "lead_ppm": 1,
+                    "molybdenum_ppm": "<1",
+                    "chromium_ppm": "<1",
+                    "nickel_ppm": "<1",
+                    "tin_ppm": 3,
+                    "silver_ppm": 1,
+                    "titanium_ppm": 3,
+                    "aluminium_ppm": 1,
+                    "antimony_ppm": 1
+                },
+                "contamination": {
+                    "boron_ppm": 1,
+                    "silicon_ppm": "<1",
+                    "sodium_ppm": 2,
+                    "vanadium_ppm": 1,
+                    "ir_nitration_au": 1.79,
+                    "water_percent": "<0.05"
+                },
+                "particle_count": {
+                    "gt_4u": 840.67,
+                    "gt_6u": 73.22,
+                    "gt_14u": 24.33,
+                    "iso_code": "17/13/12"
+                },
+                "chemistry": {
+                    "barium_ppm": 1,
+                    "calcium_ppm": 128,
+                    "phosphorus_ppm": 472,
+                    "zinc_ppm": 746,
+                    "magnesium_ppm": 1,
+                    "manganese_ppm": 1,
+                    "potassium_ppm": 4,
+                    "ir_oxidation_au": 2.54,
+                    "vis_40c_cst": 46,
+                    "total_acid_mg_kohg": 1.22
+                }
+            },
+            {
+                "general_details": {
+                    "report_id": "LOS241117273",
+                    "bottle_identification_no": "L0173969",
+                    "sampling_date": "08-Nov-2024",
+                    "sampling_point": "NO INFORMATION",
+                    "report_date": "15-Nov-2024",
+                    "place": "TAICHUNG",
+                    "unit_usage": null,
+                    "total_lubricant_hours": null,
+                    "oil_added_ltrs": null,
+                    "oil_condition_rating": "Normal"
+                },
+                "wear_ppm": {
+                    "iron_ppm": 60,
+                    "copper_ppm": 17,
+                    "lead_ppm": 3,
+                    "molybdenum_ppm": 1,
+                    "chromium_ppm": "<1",
+                    "nickel_ppm": 1,
+                    "tin_ppm": 3,
+                    "silver_ppm": 1,
+                    "titanium_ppm": 4,
+                    "aluminium_ppm": 3,
+                    "antimony_ppm": 3
+                },
+                "contamination": {
+                    "boron_ppm": 4,
+                    "silicon_ppm": 1,
+                    "sodium_ppm": 5,
+                    "vanadium_ppm": 3,
+                    "ir_nitration_au": 1.9,
+                    "water_percent": "<0.05"
+                },
+                "particle_count": {
+                    "gt_4u": 3374,
+                    "gt_6u": 318,
+                    "gt_14u": 15,
+                    "iso_code": "19/15/11"
+                },
+                "chemistry": {
+                    "barium_ppm": 3,
+                    "calcium_ppm": 142,
+                    "phosphorus_ppm": 453,
+                    "zinc_ppm": 733,
+                    "magnesium_ppm": 3,
+                    "manganese_ppm": 4,
+                    "potassium_ppm": 6,
+                    "ir_oxidation_au": 2.87,
+                    "vis_40c_cst": 43.33,
+                    "total_acid_mg_kohg": 0.14
+                }
+            },
+            {
+                "general_details": {
+                    "report_id": "LOS240813823",
+                    "bottle_identification_no": "618723",
+                    "sampling_date": "19-Aug-2024",
+                    "sampling_point": "NO INFORMATION",
+                    "report_date": "28-Aug-2024",
+                    "place": "DURBAN - SO",
+                    "unit_usage": null,
+                    "total_lubricant_hours": null,
+                    "oil_added_ltrs": null,
+                    "oil_condition_rating": "Normal"
+                },
+                "wear_ppm": {
+                    "iron_ppm": 59,
+                    "copper_ppm": 15,
+                    "lead_ppm": 1,
+                    "molybdenum_ppm": "<1",
+                    "chromium_ppm": "<1",
+                    "nickel_ppm": "<1",
+                    "tin_ppm": 1,
+                    "silver_ppm": "<1",
+                    "titanium_ppm": 2,
+                    "aluminium_ppm": 1,
+                    "antimony_ppm": "<1"
+                },
+                "contamination": {
+                    "boron_ppm": 1,
+                    "silicon_ppm": "<1",
+                    "sodium_ppm": 4,
+                    "vanadium_ppm": 1,
+                    "ir_nitration_au": 1.82,
+                    "water_percent": "<0.05"
+                },
+                "particle_count": {
+                    "gt_4u": 2661,
+                    "gt_6u": 471,
+                    "gt_14u": 7,
+                    "iso_code": "19/16/10"
+                },
+                "chemistry": {
+                    "barium_ppm": "<1",
+                    "calcium_ppm": 141,
+                    "phosphorus_ppm": 636,
+                    "zinc_ppm": 764,
+                    "magnesium_ppm": "<1",
+                    "manganese_ppm": 2,
+                    "potassium_ppm": 5,
+                    "ir_oxidation_au": 2.46,
+                    "vis_40c_cst": 43.02,
+                    "total_acid_mg_kohg": 1.25
+                }
+            }
+        ]
+    }
+}

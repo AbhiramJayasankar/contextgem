@@ -1,0 +1,221 @@
+{
+    "report_header": {
+        "report_provider_company": "Lubmarine",
+        "overall_lubricant_condition": "NORMAL",
+        "equipment_information": {
+            "vessel_name": "NORD KUDU",
+            "company": "SYNERGY MARITIME",
+            "unit_name": "STERN TUBE, BIO",
+            "unit_id": "LM02118681",
+            "description": "STERN TUBE BIO",
+            "make": null,
+            "model": null,
+            "oil_type": "BIONEPTAN HT 100",
+            "sample_no": "11253803",
+            "analysis_no": "8878766",
+            "reported": "14-MAY-25",
+            "affiliate": "LUBMARINE-AE",
+            "lab": "Chicago"
+        }
+    },
+    "oil_analysis_results": {
+        "summary": {
+            "symptoms": "Lubricant condition is Normal.",
+            "comments": "Retain this report for Insurance or Classification Society Inspection. Guidance limits (ppm) for metals / contaminants reflect IACS recommendation (10:Cr/Pb/Ni/Sn 30:Fe 40:Si 50:Cu 70:Mg 80:Na). Note that Na, Si, Mg are sometimes present as additive in an engine oil. Guidance limits (Abs/cm) for the oxidation of mineral oil only: 30. Resample at normal interval. Label Remarks: Fresh oil sample"
+        },
+        "samples": [
+            {
+                "sample_data": {
+                    "status": "URGENT",
+                    "sample_no": "11253801",
+                    "date_sampled": "23/12/2024",
+                    "date_recieved": "26/12/2024",
+                    "port_landed": "KOREA",
+                    "oil_on_label": "BIOSTAT 100",
+                    "purifier_filter": "N.A.",
+                    "equipment_life": "56594",
+                    "oil_life": "N.A.",
+                    "top_up_volume": null
+                },
+                "analysis": {
+                    "visco_40c_mm2s": 103.4,
+                    "acid_number_mg_kohg": 5.17,
+                    "water_content_percent_mass": "1.34*",
+                    "Chlorides": null,
+                    "pq_index": 14,
+                    "oxidation_by_ftir_abs_cm": ">500"
+                },
+                "spectro_analysis": {
+                    "wear_elements": {
+                        "iron_fe": "4773*",
+                        "chromium_cr": 4,
+                        "molybdenum_mo": 0,
+                        "copper_cu": "242*",
+                        "lead_pb": 2,
+                        "silver_ag": 0,
+                        "tin_sn": 3,
+                        "aluminum_al": 4
+                    },
+                    "contaminants": {
+                        "nickel_ni": 4,
+                        "vanadium_v": 0,
+                        "silicon_si": 25,
+                        "boron_b": 1,
+                        "sodium_Na": "175*",
+                        "magnesium_mg": 26
+                    },
+                    "other_metals": {
+                        "phosphorus_p": 541,
+                        "zinc_zn": 204,
+                        "barium_ba": 6,
+                        "calcium_ca": 1106
+                    }
+                }
+            },
+            {
+                "sample_data": {
+                    "status": "URGENT",
+                    "sample_no": "11253816",
+                    "date_sampled": "25/03/2025",
+                    "date_recieved": "15/04/2025",
+                    "port_landed": "PRAIA MOLE,",
+                    "oil_on_label": "BIOSTAT 100",
+                    "purifier_filter": "N.A.",
+                    "equipment_life": "57986",
+                    "oil_life": "N.A.",
+                    "top_up_volume": null
+                },
+                "analysis": {
+                    "visco_40c_mm2s": 137.7,
+                    "acid_number_mg_kohg": 6.69,
+                    "water_content_percent_mass": "2.88*",
+                    "Chlorides": "Pos.",
+                    "pq_index": 31,
+                    "oxidation_by_ftir_abs_cm": 170.9
+                },
+                "spectro_analysis": {
+                    "wear_elements": {
+                        "iron_fe": "9761*",
+                        "chromium_cr": 5,
+                        "molybdenum_mo": 0,
+                        "copper_cu": "552*",
+                        "lead_pb": 6,
+                        "silver_ag": 0,
+                        "tin_sn": "55*",
+                        "aluminum_al": 2
+                    },
+                    "contaminants": {
+                        "nickel_ni": 8,
+                        "vanadium_v": 0,
+                        "silicon_si": "51*",
+                        "boron_b": 31,
+                        "sodium_Na": "394*",
+                        "magnesium_mg": 58
+                    },
+                    "other_metals": {
+                        "phosphorus_p": 1198,
+                        "zinc_zn": 409,
+                        "barium_ba": 0,
+                        "calcium_ca": 1739
+                    }
+                }
+            },
+            {
+                "sample_data": {
+                    "status": "URGENT",
+                    "sample_no": "11253810",
+                    "date_sampled": "30/04/2025",
+                    "date_recieved": "09/05/2025",
+                    "port_landed": "LOS ANGELES",
+                    "oil_on_label": "BIOSTAT 100",
+                    "purifier_filter": "N.A.",
+                    "equipment_life": "58725",
+                    "oil_life": "N.A.",
+                    "top_up_volume": null
+                },
+                "analysis": {
+                    "visco_40c_mm2s": 132.3,
+                    "acid_number_mg_kohg": 8.62,
+                    "water_content_percent_mass": "0.00",
+                    "Chlorides": 32,
+                    "pq_index": 32,
+                    "oxidation_by_ftir_abs_cm": 161.3
+                },
+                "spectro_analysis": {
+                    "wear_elements": {
+                        "iron_fe": "6942*",
+                        "chromium_cr": 5,
+                        "molybdenum_mo": 0,
+                        "copper_cu": "356*",
+                        "lead_pb": 5,
+                        "silver_ag": 0,
+                        "tin_sn": "38*",
+                        "aluminum_al": 4
+                    },
+                    "contaminants": {
+                        "nickel_ni": 7,
+                        "vanadium_v": 0,
+                        "silicon_si": 30,
+                        "boron_b": 8,
+                        "sodium_Na": "139*",
+                        "magnesium_mg": 21
+                    },
+                    "other_metals": {
+                        "phosphorus_p": 748,
+                        "zinc_zn": 194,
+                        "barium_ba": 1,
+                        "calcium_ca": 1175
+                    }
+                }
+            },
+            {
+                "sample_data": {
+                    "status": "NORMAL",
+                    "sample_no": "11253803",
+                    "date_sampled": "04/05/2025",
+                    "date_recieved": "09/05/2025",
+                    "port_landed": "LOS ANGELES",
+                    "oil_on_label": "BIONEPTAN HT 100",
+                    "purifier_filter": "N.A.",
+                    "equipment_life": "N.A.",
+                    "oil_life": "N.A.",
+                    "top_up_volume": null
+                },
+                "analysis": {
+                    "visco_40c_mm2s": 95.7,
+                    "acid_number_mg_kohg": 0.47,
+                    "water_content_percent_mass": "0.00",
+                    "Chlorides": 12,
+                    "pq_index": 12,
+                    "oxidation_by_ftir_abs_cm": 176.9
+                },
+                "spectro_analysis": {
+                    "wear_elements": {
+                        "iron_fe": 0,
+                        "chromium_cr": 0,
+                        "molybdenum_mo": 0,
+                        "copper_cu": 0,
+                        "lead_pb": 0,
+                        "silver_ag": 0,
+                        "tin_sn": 0,
+                        "aluminum_al": 0
+                    },
+                    "contaminants": {
+                        "nickel_ni": 0,
+                        "vanadium_v": 0,
+                        "silicon_si": 1,
+                        "boron_b": 6,
+                        "sodium_Na": 7,
+                        "magnesium_mg": 0
+                    },
+                    "other_metals": {
+                        "phosphorus_p": 310,
+                        "zinc_zn": 1,
+                        "barium_ba": 0,
+                        "calcium_ca": 1
+                    }
+                }
+            }
+        ]
+    }
+}

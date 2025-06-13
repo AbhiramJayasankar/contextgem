@@ -1,0 +1,196 @@
+{
+    "report_header": {
+        "report_provider_company": "Chevron",
+        "vessel": "BW KIZOKU",
+        "imo": "9810032",
+        "customer": "ENEOS CORPORATION",
+        "system": "STEERING GEAR #2 Hydraulic system",
+        "date_reported": "22 Nov 2024",
+        "overall_status": "NORMAL"
+    },
+    "oil_analysis_results": {
+        "samples": [
+            {
+                "sample_logistics": {
+                    "request_no": "22345062",
+                    "alternate_request_no": null,
+                    "product": "FBK TURBINE 68",
+                    "port": "SINGAPORE",
+                    "date_sampled": "29 Mar 2023",
+                    "date_landed": "03 Apr 2023",
+                    "date_reported": "12 Apr 2023",
+                    "product_service_hrs": null,
+                    "total_equipment_hrs": null,
+                    "consumption_l_d": null
+                },
+                "condition_and_analysis": {
+                    "status_indicator": "ATTENTION",
+                    "appearance": "HAZY",
+                    "water_content_percent": "0.44",
+                    "kin_viscosity_40C_cst": "69.04",
+                    "total_acid_number_mgkoh_g": "0.01"
+                },
+                "spectrographic_analysis_ppm": {
+                    "calcium_ppm": "0",
+                    "zinc_ppm": "0",
+                    "phosphorus_ppm": "0",
+                    "molybdenum_ppm": "0",
+                    "iron_ppm": "1",
+                    "copper_ppm": "1",
+                    "lead_ppm": "2",
+                    "chromium_ppm": "0",
+                    "aluminum_ppm": "0",
+                    "silicon_ppm": "0",
+                    "tin_ppm": "0",
+                    "nickel_ppm": "0"
+                }
+            },
+            {
+                "sample_logistics": {
+                    "request_no": "9023817",
+                    "alternate_request_no": null,
+                    "product": "FBK TURBINE 68",
+                    "port": "HOUSTON",
+                    "date_sampled": "10 May 2023",
+                    "date_landed": null,
+                    "date_reported": "22 May 2023",
+                    "product_service_hrs": null,
+                    "total_equipment_hrs": null,
+                    "consumption_l_d": null
+                },
+                "condition_and_analysis": {
+                    "status_indicator": "NORMAL",
+                    "appearance": "Bright&Clear",
+                    "water_content_percent": "Negligible",
+                    "kin_viscosity_40C_cst": "66.95",
+                    "total_acid_number_mgkoh_g": "0.05"
+                },
+                "spectrographic_analysis_ppm": {
+                    "calcium_ppm": "0",
+                    "zinc_ppm": "1",
+                    "phosphorus_ppm": "1",
+                    "molybdenum_ppm": "0",
+                    "iron_ppm": "1",
+                    "copper_ppm": "1",
+                    "lead_ppm": "0",
+                    "chromium_ppm": "0",
+                    "aluminum_ppm": "0",
+                    "silicon_ppm": "0",
+                    "tin_ppm": "0",
+                    "nickel_ppm": "0"
+                }
+            },
+            {
+                "sample_logistics": {
+                    "request_no": "22727266",
+                    "alternate_request_no": null,
+                    "product": "FBK TURBINE 68",
+                    "port": "FREEPORT, US",
+                    "date_sampled": "26 Sep 2023",
+                    "date_landed": "28 Sep 2023",
+                    "date_reported": "06 Oct 2023",
+                    "product_service_hrs": null,
+                    "total_equipment_hrs": null,
+                    "consumption_l_d": null
+                },
+                "condition_and_analysis": {
+                    "status_indicator": "NORMAL",
+                    "appearance": "Bright&Clear",
+                    "water_content_percent": "Negligible",
+                    "kin_viscosity_40C_cst": "67.76",
+                    "total_acid_number_mgkoh_g": "0.00"
+                },
+                "spectrographic_analysis_ppm": {
+                    "calcium_ppm": "0",
+                    "zinc_ppm": "0",
+                    "phosphorus_ppm": "10",
+                    "molybdenum_ppm": "0",
+                    "iron_ppm": "1",
+                    "copper_ppm": "1",
+                    "lead_ppm": "0",
+                    "chromium_ppm": "0",
+                    "aluminum_ppm": "0",
+                    "silicon_ppm": "0",
+                    "tin_ppm": "2",
+                    "nickel_ppm": "0"
+                }
+            },
+            {
+                "sample_logistics": {
+                    "request_no": "9016256 [12141374]",
+                    "alternate_request_no": null,
+                    "product": "FBK TURBINE 68",
+                    "port": null,
+                    "date_sampled": "23 Mar 2024",
+                    "date_landed": null,
+                    "date_reported": "17 Apr 2024",
+                    "product_service_hrs": null,
+                    "total_equipment_hrs": null,
+                    "consumption_l_d": null
+                },
+                "condition_and_analysis": {
+                    "status_indicator": "NORMAL",
+                    "appearance": "Bright&Clear",
+                    "water_content_percent": "Negligible",
+                    "kin_viscosity_40C_cst": "67.06",
+                    "total_acid_number_mgkoh_g": "0.05"
+                },
+                "spectrographic_analysis_ppm": {
+                    "calcium_ppm": "26",
+                    "zinc_ppm": "226",
+                    "phosphorus_ppm": "187",
+                    "molybdenum_ppm": "1",
+                    "iron_ppm": "2",
+                    "copper_ppm": "3",
+                    "lead_ppm": "0",
+                    "chromium_ppm": "0",
+                    "aluminum_ppm": "0",
+                    "silicon_ppm": "0",
+                    "tin_ppm": "0",
+                    "nickel_ppm": "0"
+                }
+            },
+            {
+                "sample_logistics": {
+                    "request_no": "9011792 [C 22953088]",
+                    "alternate_request_no": null,
+                    "product": "FBK TURBINE 68",
+                    "port": "VUNG TAU, VIETNAM",
+                    "date_sampled": "12 Oct 2024",
+                    "date_landed": "20 Oct 2024",
+                    "date_reported": "13 Nov 2024",
+                    "product_service_hrs": null,
+                    "total_equipment_hrs": null,
+                    "consumption_l_d": null
+                },
+                "condition_and_analysis": {
+                    "status_indicator": "NORMAL",
+                    "appearance": "Bright&Clear",
+                    "water_content_percent": "Negligible",
+                    "kin_viscosity_40C_cst": "67.94",
+                    "total_acid_number_mgkoh_g": "0.06"
+                },
+                "spectrographic_analysis_ppm": {
+                    "calcium_ppm": "0",
+                    "zinc_ppm": "1",
+                    "phosphorus_ppm": "0",
+                    "molybdenum_ppm": "0",
+                    "iron_ppm": "2",
+                    "copper_ppm": "2",
+                    "lead_ppm": "1",
+                    "chromium_ppm": "0",
+                    "aluminum_ppm": "0",
+                    "silicon_ppm": "0",
+                    "tin_ppm": "0",
+                    "nickel_ppm": "0"
+                }
+            }
+        ],
+        "summary": {
+            "latest_comments_request_no": "9011792 [C 22953088]",
+            "product_given_as": "FBK TURBINE 68",
+            "sample_request_number_details": "C 22953088 [Alternate number] replaced by Sample number 9011792.",
+            "final_recommendation": "PRODUCT IS CONSIDERED SUITABLE FOR FURTHER SERVICE."
+        }
+    }
+}

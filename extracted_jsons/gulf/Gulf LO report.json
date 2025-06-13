@@ -1,0 +1,113 @@
+{
+    "report_header": {
+        "report_provider_company": "Gulf",
+        "overall_lubricant_condition": "Normal",
+        "equipment_information": {
+            "customer_name": "SYNERGY MARITIME PVT LTD.",
+            "vessel_name": "GENCO INTREPID",
+            "imo_number": "9742209",
+            "report_date": "28-Apr-2025",
+            "product_name": "GULFSEA HYDRAULIC HVI PLUS 32",
+            "equipment_make": "EMERSON PROCESS",
+            "equipment_model": "NOT STATED",
+            "machinery_unit": "VALVE REMOTE CONTROL SYSTEM",
+            "equipment_sn": null,
+            "sample_location": "DRAIN"
+        }
+    },
+    "oil_analysis_results": {
+        "samples": [
+            {
+                "sample_information": {
+                    "sample_no": "1",
+                    "bottle_no": null,
+                    "date_received": "20-Nov-24",
+                    "sampled_date": "27-Oct-24",
+                    "port_of_landing": "Shanghai",
+                    "oil_on_label": "VISGA 32",
+                    "fuel_in_use_sulphur_percent": null,
+                    "total_frame_running_hours": null,
+                    "lubricant_hours": null,
+                    "lubricant_condition": "Normal"
+                },
+                "analysis": {
+                    "viscosity_cst_mm2_s": 30.18,
+                    "viscosity_index": 172,
+                    "water_percent_wt": "<0.05",
+                    "an_mgkoh_g": 0.54,
+                    "pq_index_2ml": "<10",
+                    "iso_code": "22/19/14",
+                    "greater_than_4_um": 15736,
+                    "greater_than_6_um": 4488,
+                    "greater_than_14_um": 94
+                },
+                "wear_elements_ppm": {
+                    "aluminum_al_ppm": "<1",
+                    "chromium_cr_ppm": "<1",
+                    "copper_cu_ppm": "<1",
+                    "iron_fe_ppm": "<1",
+                    "lead_pb_ppm": "<1",
+                    "tin_sn_ppm": "<1"
+                },
+                "other_elements_ppm": {
+                    "boron_b_ppm": "<1",
+                    "calcium_ca_ppm": null,
+                    "silicon_si_ppm": "<1",
+                    "molybdenum_mo_ppm": "<1",
+                    "nickel_ni_ppm": "<1",
+                    "silver_ag_ppm": "<1",
+                    "vanadium_v_ppm": "<1",
+                    "lithium_li_ppm": "<1",
+                    "barium_ba_ppm": "<1"
+                }
+            },
+            {
+                "sample_information": {
+                    "sample_no": "2",
+                    "bottle_no": "60496767",
+                    "date_received": "23-Apr-25",
+                    "sampled_date": "14-Apr-25",
+                    "port_of_landing": "Singapore",
+                    "oil_on_label": "VISGA 32",
+                    "fuel_in_use_sulphur_percent": null,
+                    "total_frame_running_hours": null,
+                    "lubricant_hours": null,
+                    "lubricant_condition": "Normal"
+                },
+                "analysis": {
+                    "viscosity_cst_mm2_s": 32.43,
+                    "viscosity_index": 160,
+                    "water_percent_wt": "<0.05",
+                    "an_mgkoh_g": 0.94,
+                    "pq_index_2ml": "<10",
+                    "iso_code": "21/18/13",
+                    "greater_than_4_um": 10889,
+                    "greater_than_6_um": 1657,
+                    "greater_than_14_um": 47
+                },
+                "wear_elements_ppm": {
+                    "aluminum_al_ppm": "<1",
+                    "chromium_cr_ppm": "<1",
+                    "copper_cu_ppm": "2",
+                    "iron_fe_ppm": "2",
+                    "lead_pb_ppm": "<1",
+                    "tin_sn_ppm": "<1"
+                },
+                "other_elements_ppm": {
+                    "boron_b_ppm": "<1",
+                    "calcium_ca_ppm": null,
+                    "silicon_si_ppm": "3",
+                    "molybdenum_mo_ppm": "<1",
+                    "nickel_ni_ppm": "<1",
+                    "silver_ag_ppm": "<1",
+                    "vanadium_v_ppm": "<1",
+                    "lithium_li_ppm": "<1",
+                    "barium_ba_ppm": "<1"
+                }
+            }
+        ],
+        "recommendations": {
+            "text": "The oil is fit for further use provided the landed used oil sample is representative for the application.\nWear rate is normal; no abnormalities are evident.\nNo action required."
+        }
+    }
+}
