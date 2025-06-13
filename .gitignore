@@ -3,7 +3,7 @@ docs/
 images/
 pdfs/
 test_code/
-result_log/
+extract_functions/
 
 
 # Default files to ignore
