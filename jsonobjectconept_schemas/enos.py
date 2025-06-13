@@ -54,9 +54,10 @@ oil_analysis_results_concept = JsonObjectConcept(
                 },
                 "oil_analysis": {
                     "viscosity_40c_mm2_s": Union[int, float, str, None],
+                    "astm_color": Union[int, float, str, None],
                     "total_acid_number_mg_koh_g": Union[int, float, str, None],
                     "water_content_percent_w": Union[int, float, str, None],
-                    "pq_index": Union[int, float, str, None],
+                    "chloride_nature_of_water": Union[int, float, str, None],
                 },
                 "element_analysis_ppm": {
                     "iron_fe_ppm": Union[int, float, str, None],
@@ -79,6 +80,7 @@ oil_analysis_results_concept = JsonObjectConcept(
                     "calcium_ca_ppm": Union[int, float, str, None],
                     "potassium_k_ppm": Union[int, float, str, None],
                     "titanium_ti_ppm": Union[int, float, str, None],
+                    "manganese_mn_ppm": Union[int, float, str, None],
                     "lithium_li_ppm": Union[int, float, str, None],
                     "cadmium_cd_ppm": Union[int, float, str, None],
                 },
