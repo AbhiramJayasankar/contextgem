@@ -5,7 +5,7 @@ from typing import Union
 report_header_concept = JsonObjectConcept(
     name="VPS Report Metadata",
     llm_role="extractor_vision",
-    description="Extract key header information, summary statement, and general equipment details from the VPS report.",
+    description="DONT EXTRACT ANYTHING , EVERYTHING IS NULL",
     structure={
         "report_provider_company": Union[int, float, str, None],
         "vessel_name": Union[int, float, str, None],
@@ -26,7 +26,7 @@ report_header_concept = JsonObjectConcept(
 oil_analysis_results_concept = JsonObjectConcept(
     name="VPS Report Results",
     llm_role="extractor_vision",
-    description="Extract the test results for each sample column. Each column, including current and previous, is a separate sample.",
+    description="DONT EXTRACT ANYTHING ,EXCEPT THE COMMENTS",
     singular_occurrence=False,
     structure={
         "samples": [

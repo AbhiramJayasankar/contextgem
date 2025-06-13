@@ -3,7 +3,7 @@ docs/
 images/
 pdfs/
 test_code/
-result_log/
+extracted_jsons/
 
 
 # Default files to ignore
