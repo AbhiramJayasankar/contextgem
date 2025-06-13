@@ -70,7 +70,7 @@ oil_analysis_results_concept = JsonObjectConcept(
                 },
                 "other_elements_ppm": {
                     "boron_b_ppm": Union[int, float, str, None],
-                    "calcium_ca_ppm": Union[int, float, str, None],
+                    "sodium_na_ppm": Union[int, float, str, None],
                     "silicon_si_ppm": Union[int, float, str, None],
                     "molybdenum_mo_ppm": Union[int, float, str, None],
                     "nickel_ni_ppm": Union[int, float, str, None],
