@@ -48,6 +48,7 @@
                     "free_water_percent": "0",
                     "water_content_percent": "<0.05",
                     "flash_point_at_190C": ">190",
+                    "viscosity_40C_cst": null,
                     "viscosity_100C_cst": "12.09",
                     "insolubles_percent": "0.0",
                     "an_mg_koh_g": null,
@@ -55,17 +56,27 @@
                     "san_astm_d664_mg_koh_g": null
                 },
                 "spectrometry_ppm": {
+                    "ag_silver_ppm": null,
                     "al_aluminium_ppm": "3",
+                    "b_boron_ppm": null,
+                    "ca_calcium_ppm": null,
                     "cr_chromium_ppm": "<1",
                     "cu_copper_ppm": "2",
                     "fe_iron_ppm": "4",
+                    "mg_magnesium_ppm": null,
+                    "mo_molybdenum_ppm": null,
                     "na_sodium_ppm": "11",
                     "ni_nickel_ppm": "3",
+                    "p_phosphorus_ppm": null,
                     "pb_lead_ppm": "<1",
                     "sb_antimony_ppm": "<1",
                     "si_silicon_ppm": "12",
                     "sn_tin_ppm": "<1",
-                    "v_vanadium_ppm": "<1"
+                    "v_vanadium_ppm": "<1",
+                    "zn_zinc_ppm": null
+                },
+                "ferrography": {
+                    "pq_index": null
                 }
             },
             {
@@ -85,6 +96,7 @@
                     "free_water_percent": "0.0",
                     "water_content_percent": "0.05",
                     "flash_point_at_190C": ">190",
+                    "viscosity_40C_cst": null,
                     "viscosity_100C_cst": "11.78",
                     "insolubles_percent": "0.05",
                     "an_mg_koh_g": null,
@@ -92,17 +104,27 @@
                     "san_astm_d664_mg_koh_g": null
                 },
                 "spectrometry_ppm": {
+                    "ag_silver_ppm": null,
                     "al_aluminium_ppm": "1",
+                    "b_boron_ppm": null,
+                    "ca_calcium_ppm": null,
                     "cr_chromium_ppm": "0",
                     "cu_copper_ppm": "2",
                     "fe_iron_ppm": "4",
+                    "mg_magnesium_ppm": null,
+                    "mo_molybdenum_ppm": null,
                     "na_sodium_ppm": "4",
                     "ni_nickel_ppm": "1",
+                    "p_phosphorus_ppm": null,
                     "pb_lead_ppm": "0",
                     "sb_antimony_ppm": "0",
                     "si_silicon_ppm": "6",
                     "sn_tin_ppm": "0",
-                    "v_vanadium_ppm": "1"
+                    "v_vanadium_ppm": "1",
+                    "zn_zinc_ppm": null
+                },
+                "ferrography": {
+                    "pq_index": null
                 }
             },
             {
@@ -122,24 +144,35 @@
                     "free_water_percent": "0.0",
                     "water_content_percent": "<0.05",
                     "flash_point_at_190C": ">190",
+                    "viscosity_40C_cst": null,
                     "viscosity_100C_cst": "12.00",
-                    "insolubles_percent": "0.0",
+                    "insolubles_percent": null,
                     "an_mg_koh_g": "1.26",
                     "bn_mg_koh_g": null,
                     "san_astm_d664_mg_koh_g": "0.00"
                 },
                 "spectrometry_ppm": {
+                    "ag_silver_ppm": null,
                     "al_aluminium_ppm": "1",
+                    "b_boron_ppm": null,
+                    "ca_calcium_ppm": null,
                     "cr_chromium_ppm": "0",
                     "cu_copper_ppm": "2",
                     "fe_iron_ppm": "4",
+                    "mg_magnesium_ppm": null,
+                    "mo_molybdenum_ppm": null,
                     "na_sodium_ppm": "3",
                     "ni_nickel_ppm": "1",
+                    "p_phosphorus_ppm": null,
                     "pb_lead_ppm": "1",
                     "sb_antimony_ppm": "0",
                     "si_silicon_ppm": "7",
                     "sn_tin_ppm": "0",
-                    "v_vanadium_ppm": "1"
+                    "v_vanadium_ppm": "1",
+                    "zn_zinc_ppm": null
+                },
+                "ferrography": {
+                    "pq_index": null
                 }
             }
         ]

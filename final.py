@@ -1,7 +1,7 @@
 import os
 import json
-from jsonobjectconept_schemas.extract import process_image_and_extract_data
-from jsonobjectconept_schemas.json_merge import merge_all_jsons
+from extract_functions.extract import process_image_and_extract_data
+from extract_functions.json_merge import merge_all_jsons
 from dotenv import load_dotenv
 
 # Load environment variables
