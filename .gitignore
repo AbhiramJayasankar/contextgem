@@ -4,6 +4,7 @@ images/
 pdfs/
 test_code/
 extracted_jsons/
+final_output/
 
 
 # Default files to ignore
@@ -20,5 +21,6 @@ __pycache__/
 .vscode/
 .idea/
 node_modules/
+test.ipynb
 
 

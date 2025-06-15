@@ -9,7 +9,7 @@ def process_image_and_extract_data(image_path, lab_name):
         from jsonobjectconept_schemas.castrol import report_header_concept, oil_analysis_results_concept
     elif lab_name == "chevron":
         from jsonobjectconept_schemas.chevron import report_header_concept, oil_analysis_results_concept
-    elif lab_name == "enos":
+    elif lab_name == "eneos":
         from jsonobjectconept_schemas.enos import report_header_concept, oil_analysis_results_concept
     elif lab_name == "gulf":
         from jsonobjectconept_schemas.gulf import report_header_concept, oil_analysis_results_concept

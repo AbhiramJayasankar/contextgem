@@ -10,8 +10,8 @@ report_header_concept = JsonObjectConcept(
         "overall_lubricant_condition": Union[int, float, str, None],
         "equipment_information": {
             "customer_name": Union[int, float, str, None],
-            "vessel_name": Union[int, float, str, None],
-            "imo_number": Union[int, float, str, None],
+            "vessel_name": Union[str, None],
+            "imo_number": Union[int, None],
             "report_date": Union[int, float, str, None],
             "product_name": Union[int, float, str, None],
             "equipment_make": Union[int, float, str, None],
@@ -60,7 +60,7 @@ oil_analysis_results_concept = JsonObjectConcept(
                     "greater_than_6_um": Union[int, float, str, None],
                     "greater_than_14_um": Union[int, float, str, None],
                 },
-                "wear_elements_ppm": {
+                "wear_elements_ppm": { 
                     "aluminum_al_ppm": Union[int, float, str, None],
                     "chromium_cr_ppm": Union[int, float, str, None],
                     "copper_cu_ppm": Union[int, float, str, None],

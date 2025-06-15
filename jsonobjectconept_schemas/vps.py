@@ -8,8 +8,8 @@ report_header_concept = JsonObjectConcept(
     description="Extract key header information, summary statement, and general equipment details from the VPS report.",
     structure={
         "report_provider_company": Union[int, float, str, None],
-        "vessel_name": Union[int, float, str, None],
-        "vessel_imo": Union[int, float, str, None],
+        "vessel_name": Union[str, None],
+        "vessel_imo": Union[int, None],
         "part_name": Union[int, float, str, None],
         "summary_statement": Union[int, float, str, None],
         "sample_details": {
@@ -58,8 +58,8 @@ oil_analysis_results_concept = JsonObjectConcept(
                     "silver": Union[int, float, str, None],
                     "chromium": Union[int, float, str, None],
                     "copper": Union[int, float, str, None],
-                    "copper": Union[int, float, str, None],
                     "tin": Union[int, float, str, None],
+                    "molybdenum": Union[int, float, str, None],
                     "titanium": Union[int, float, str, None],
                     "manganese": Union[int, float, str, None],
                 },

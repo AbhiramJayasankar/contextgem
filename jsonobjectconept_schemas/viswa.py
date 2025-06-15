@@ -9,8 +9,8 @@ report_header_concept = JsonObjectConcept(
         "report_provider_company": Union[int, float, str, None],
         "overall_oil_condition": Union[int, float, str, None],
         "customer_details": {
-            "vessel": Union[int, float, str, None],
-            "imo_no": Union[int, float, str, None],
+            "vessel": Union[str, None],
+            "imo_no": Union[int, None],
             "customer": Union[int, float, str, None],
             "equipment": Union[int, float, str, None],
             "sampling_point": Union[int, float, str, None],
