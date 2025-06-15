@@ -5,7 +5,7 @@ pdfs/
 test_code/
 extracted_jsons/
 final_output/
-
+venv/
 
 # Default files to ignore
 *.log
