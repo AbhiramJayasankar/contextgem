@@ -25,7 +25,10 @@ data_retrieval_cmd = [
     sys.executable, 'data_retrieval.py'
 ] + [str(imo) for imo in args.imo_numbers]
 print("\n=== Step 1: Retrieving data and saving PDFs ===")
-subprocess.run(data_retrieval_cmd, check=True)
+result = subprocess.run(data_retrieval_cmd)
+if result.returncode != 0:
+    print("\nNo documents found. Stopping pipeline.")
+    sys.exit(1)
 
 # Step 3: Convert PDFs to images
 pdf_to_img_cmd = [
@@ -33,6 +36,8 @@ pdf_to_img_cmd = [
 ]
 print("\n=== Step 2: Converting PDFs to images ===")
 subprocess.run(pdf_to_img_cmd, check=True)
+
+# sys.exit(0)
 
 # Step 4: Extract data and jsonify
 extraction_cmd = [
