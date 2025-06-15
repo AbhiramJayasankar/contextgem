@@ -10,8 +10,8 @@ report_header_concept = JsonObjectConcept(
         "report_provider_company": Union[int, float, str, None],
         "customer_name": Union[int, float, str, None],
         "asset_details": {
-            "vessel_or_asset": Union[int, float, str, None],
-            "imo_or_asset_number": Union[int, float, str, None],
+            "vessel_or_asset": Union[str, None],
+            "imo_or_asset_number": Union[int, None],
             "machinery_description": Union[int, float, str, None],
             "manufacturer": Union[int, float, str, None],
             "model": Union[int, float, str, None],
@@ -27,6 +27,7 @@ report_header_concept = JsonObjectConcept(
         "product_information": {
             "model": Union[int, float, str, None],
             "product_in_use_uoa_schedule": Union[int, float, str, None],
+            "product_in_use_actual": Union[int, float, str, None],
         },
         "logistics": {
             "port_landed": Union[int, float, str, None],
@@ -86,6 +87,7 @@ oil_analysis_results_concept = JsonObjectConcept(
                     "cu_copper_ppm": Union[int, float, str, None],
                     "fe_iron_ppm": Union[int, float, str, None],
                     "mg_magnesium_ppm": Union[int, float, str, None],
+                    "mn_manganese_ppm": Union[int, float, str, None],
                     "mo_molybdenum_ppm": Union[int, float, str, None],
                     "na_sodium_ppm": Union[int, float, str, None],
                     "ni_nickel_ppm": Union[int, float, str, None],

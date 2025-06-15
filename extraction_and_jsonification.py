@@ -40,7 +40,7 @@ for dirpath, dirnames, filenames in os.walk(root_input_directory):
             print(f"  - Extracting from: {filename}...")
             
             try:
-                extracted_data = process_image_and_extract_data(image_path, final_lab_name)
+                extracted_data = process_image_and_extract_data(image_path, final_lab_name.lower())
                 jsons_in_this_report.append(extracted_data)
                 print("    Status: Success")
 

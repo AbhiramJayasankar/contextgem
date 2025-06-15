@@ -16,8 +16,8 @@ report_header_concept = JsonObjectConcept(
         "description": Union[int, float, str, None],
         "account_information": {
             "id": Union[int, float, str, None],
-            "name": Union[int, float, str, None],
-            "imo_reg_number": Union[int, float, str, None],
+            "name": Union[str, None],
+            "imo_reg_number": Union[int, None],
             "parent_account": Union[int, float, str, None],
         },
         "sample_information": {
