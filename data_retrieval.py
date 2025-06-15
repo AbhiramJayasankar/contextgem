@@ -10,7 +10,8 @@ import io
 import argparse
 import sys
 from dotenv import load_dotenv
-import openai
+# import openai
+import difflib
 
 # === CONFIGURATION ===
 load_dotenv()
@@ -58,16 +59,21 @@ BASE_DOWNLOAD_DIR = "./pdfs"
 #         print(f"LLM error: {e}")
 #         return "ERROR_PARSING"
 
-def find_first_lab_in_text(text: str) -> str:
+def find_first_lab_in_text(text: str, threshold: float = 0.95) -> str:
     text_upper = text.upper()
+    words = set(text_upper.split())
     # Check original labs
     for lab in VALID_TESTLABS:
-        if lab.upper() in text_upper:
-            return lab
+        for word in words:
+            ratio = difflib.SequenceMatcher(None, lab.upper(), word).ratio()
+            if ratio >= threshold:
+                return lab
     # Check aliases
     for alias, actual in LAB_ALIASES.items():
-        if alias.upper() in text_upper:
-            return actual
+        for word in words:
+            ratio = difflib.SequenceMatcher(None, alias.upper(), word).ratio()
+            if ratio >= threshold:
+                return actual
     return "UNKNOWN_LAB"
 
 
