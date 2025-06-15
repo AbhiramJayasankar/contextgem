@@ -10,14 +10,15 @@ import io
 import argparse
 import sys
 from dotenv import load_dotenv
-# import openai
+import openai
 import difflib
+import base64
 
 # === CONFIGURATION ===
 load_dotenv()
 
-# OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-# openai.api_key = OPENAI_API_KEY
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+openai.api_key = OPENAI_API_KEY
 
 MONGO_URI = os.getenv("MONGO_URI")
 DB_NAME = "syia-etl-dev"
@@ -35,78 +36,76 @@ LAB_ALIASES = {
 TIMEOUT = 10
 BASE_DOWNLOAD_DIR = "./pdfs"
 
-# def llm_classify_lab_name(header_text: str, valid_labs: list) -> str:
-#     prompt = (
-#         f"Given the following PDF header text, classify which lab it is from this list: {', '.join(valid_labs)}.\n"
-#         f"If none match, return 'UNKNOWN_LAB'.\n\n"
-#         f"Header text:\n{header_text}\n"
-#         f"Lab name:"
-#     )
-#     try:
-#         client = openai.OpenAI(api_key=OPENAI_API_KEY)
-#         response = client.chat.completions.create(
-#             model="gpt-3.5-turbo",
-#             messages=[{"role": "user", "content": prompt}],
-#             max_tokens=10,
-#             temperature=0
-#         )
-#         lab_name = response.choices[0].message.content.strip()
-#         if lab_name in valid_labs:
-#             return lab_name
-#         else:
-#             return "UNKNOWN_LAB"
-#     except Exception as e:
-#         print(f"LLM error: {e}")
-#         return "ERROR_PARSING"
+ALL_LABS = VALID_TESTLABS + list(LAB_ALIASES.keys())
 
-def find_first_lab_in_text(text: str, threshold: float = 0.95) -> str:
-    text_upper = text.upper()
-    words = set(text_upper.split())
-    # Check original labs
-    for lab in VALID_TESTLABS:
-        for word in words:
-            ratio = difflib.SequenceMatcher(None, lab.upper(), word).ratio()
-            if ratio >= threshold:
-                return lab
-    # Check aliases
-    for alias, actual in LAB_ALIASES.items():
-        for word in words:
-            ratio = difflib.SequenceMatcher(None, alias.upper(), word).ratio()
-            if ratio >= threshold:
-                return actual
-    return "UNKNOWN_LAB"
-
-
+def llm_classify_lab_name(image, valid_labs: list, lab_aliases: dict) -> str:
+    """
+    Sends the image to OpenAI's gpt-4o-mini model to classify the lab name.
+    Includes information about lab aliases in the prompt.
+    """
+    # Create alias information string
+    alias_info = "Lab aliases: " + ", ".join([f"{alias} -> {actual}" for alias, actual in lab_aliases.items()])
+    
+    prompt = (
+        f"You are given the top portion of a PDF first page containing a lab test report. "
+        f"Classify the lab from this list: {', '.join(ALL_LABS)}. "
+        f"Lab aliases: {alias_info}. "
+        f"ONLY use the logo or company name appearing in the top header of the page. "
+        f"If you see a lab alias, return the canonical lab name. "
+        f"If no known lab name or alias is visible in the top branding section, return 'UNKNOWN_LAB'."
+    )
+    try:
+        # Convert image to base64
+        buffered = io.BytesIO()
+        image.save(buffered, format="PNG")
+        img_b64 = base64.b64encode(buffered.getvalue()).decode()
+        client = openai.OpenAI(api_key=OPENAI_API_KEY)
+        response = client.chat.completions.create(
+            model="gpt-4o",
+            messages=[
+                {"role": "user", "content": [
+                    {"type": "text", "text": prompt},
+                    {"type": "image_url", "image_url": {"url": f"data:image/png;base64,{img_b64}"}}
+                ]}
+            ],
+            max_tokens=10,
+            temperature=0
+        )
+        lab_name = response.choices[0].message.content.strip()
+        # Map alias to canonical
+        if lab_name in lab_aliases:
+            # print(f"Lab found in aliases: {lab_name}")
+            return lab_aliases[lab_name]
+        if lab_name in valid_labs:
+            # print(f"Lab found in valid labs: {lab_name}")
+            return lab_name
+        return "UNKNOWN_LAB"
+    except Exception as e:
+        print(f"LLM error: {e}")
+        return "ERROR_PARSING"
+    
 def extract_lab_name_from_pdf(file_path: str) -> str:
     try:
         doc = fitz.open(file_path)
         page = doc[0]
-
-        # # Extract text blocks
-        # blocks = page.get_text("blocks")
-        # block_text = " ".join(
-        #     block[4].strip().upper()
-        #     for block in blocks
-        #     if block[1] < 250 and block[4].strip()
-        # )
-
-        # OCR on header
-        page_width = page.rect.width
-        header_clip = fitz.Rect(0, 0, page_width, 250)
-        pix = page.get_pixmap(clip=header_clip, dpi=300)
+        # Extract header region as image (top 200px)
+        header_clip = fitz.Rect(0, 0, page.rect.width, 200)
+        pix = page.get_pixmap(clip=header_clip)
         img_bytes = pix.tobytes("png")
         image = Image.open(io.BytesIO(img_bytes))
+        # OCR
         ocr_text = pytesseract.image_to_string(image).upper()
-
-        # Combine all header text
-        # joined_text = block_text + "\n" + ocr_text
-        joined_text = ocr_text
-        # print(f"Joined text: {joined_text}")
-
-        lab_from_llm = find_first_lab_in_text(joined_text)
-        if lab_from_llm:
-            return lab_from_llm
-        return "UNKNOWN_LAB"
+        # print(ocr_text)
+        for lab in ALL_LABS:
+            if lab.upper() in ocr_text:
+                doc.close()
+                # print(f"Lab found in OCR: {lab}")
+                return LAB_ALIASES.get(lab, lab)
+        # Fallback: send full page to LLM
+        page_image = Image.open(io.BytesIO(page.get_pixmap().tobytes("png")))
+        lab_name = llm_classify_lab_name(page_image, VALID_TESTLABS, LAB_ALIASES)
+        doc.close()
+        return lab_name
     except Exception as e:
         print(f"❗ Error processing PDF {file_path}: {e}")
         return "ERROR_PARSING"
@@ -150,18 +149,18 @@ if __name__ == "__main__":
 
     docs = []
     for imo in IMO_NUMBERS:
-        # found = list(collection.find({"imo": imo}))
-        found = collection.find_one({"imo": imo, "testLab": "Chevron"})
+        found = list(collection.find({"imo": imo}))
+        # found = collection.find_one({"imo": imo, "testLab": "Castrol"})
         if not found:
             print(f"No documents found for IMO: {imo}")
         else:
             print(f"Found {len(found)} documents for IMO {imo}")
-            # docs.extend(found)
-            docs.append(found)
+            docs.extend(found)
+            # docs.append(found)
 
     if not docs:
         print(f"No documents found for any IMO in list: {IMO_NUMBERS}")
-        sys.exit(0)
+        sys.exit(1)
 
     print(f"Total documents found: {len(docs)}")
 
