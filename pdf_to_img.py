@@ -41,7 +41,7 @@ def convert_pdfs_to_images(input_dir: str, output_dir: str, zoom_factor: int = 1
                     # --- Create the corresponding output directory structure ---
                     
                     # Get the base name of the PDF without the extension
-                    pdf_name_without_ext = os.path.splitext(filename)[0]
+                    pdf_name_without_ext = os.path.splitext(filename)[0].strip()
                     
                     # Get the relative path of the PDF's directory from the input_dir
                     relative_dir_path = os.path.relpath(dirpath, input_dir)
