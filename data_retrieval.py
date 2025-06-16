@@ -132,11 +132,25 @@ def extract_lab_report_provider_from_pdf(file_path):
             return "Provider not found"
             
     except Exception as e:
-        print(f"❗ Error processing PDF {file_path}: {e}")
+        print(f" Error processing PDF {file_path}: {e}")
         return "ERROR_PARSING"
 
 # Replace extract_lab_name_from_pdf with the new provider
 extract_lab_name_from_pdf = extract_lab_report_provider_from_pdf
+
+def extract_lab_from_s3_url(url: str):
+    """
+    Extracts the lab name from an S3 URL by parsing the segment after 'split/'.
+    """
+    try:
+        parts = url.split("split/")
+        if len(parts) > 1:
+            return parts[1].split("/")[0]  # Extract the lab name
+        return "Unknown"
+    except Exception as e:
+        print(f"Error extracting lab from S3 URL: {e}")
+        return "Unknown"
+
 
 def download_and_sort_pdf(url: str):
     try:
@@ -153,15 +167,23 @@ def download_and_sort_pdf(url: str):
             print(f"Downloaded to {temp_path}")
 
             # Classify and get canonical lab name
-            raw_lab_name = extract_lab_name_from_pdf(temp_path)
-            print(f"Raw lab name detected: '{raw_lab_name}'")
-            lab_name = get_canonical_lab_name(raw_lab_name)
+            if "shipsight.synergymarinegroup.com" in url or "Fast%20Report" in url:
+                print("USING CONTEXTGEN FOR LABNAME")
+                raw_lab_name = extract_lab_name_from_pdf(temp_path)
+                print(f"Raw lab name detected: '{raw_lab_name}'")
+                lab_name = get_canonical_lab_name(raw_lab_name)
+            else:
+                print("EXTRACTING LABNAME FORM S3 LINK")
+                raw_lab_name_ = extract_lab_from_s3_url(url)
+                lab_name_ = get_canonical_lab_name(raw_lab_name_)
+                print(f"Lab name extracted from S3 URL: '{lab_name_}'")
+
             final_dir = os.path.join(BASE_DOWNLOAD_DIR, lab_name)
             Path(final_dir).mkdir(parents=True, exist_ok=True)
 
             final_path = os.path.join(final_dir, file_name)
             os.rename(temp_path, final_path)
-            print(f"📁 Moved to {final_path} (Lab: {lab_name})")
+            print(f"Moved to {final_path} (Lab: {lab_name})")
 
             # Save mapping from relative PDF path to URL
             rel_pdf_path = os.path.relpath(final_path, BASE_DOWNLOAD_DIR)
@@ -170,6 +192,12 @@ def download_and_sort_pdf(url: str):
             print(f"Skipped non-PDF or failed request ({r.status_code}) for {url}")
     except Exception as e:
         print(f"Error downloading {url}: {e}")
+
+def normalize_url(url: str) -> str:
+    """
+    Replaces all backslashes in the URL with forward slashes.
+    """
+    return url.replace('\\', '/')
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Download and sort PDFs for given IMO numbers.")
@@ -183,14 +211,14 @@ if __name__ == "__main__":
 
     docs = []
     for imo in IMO_NUMBERS:
-        found = list(collection.find({"imo": imo, "testLab": "Total"}))
+        found = list(collection.find({"imo": imo}))
         # found = collection.find_one({"imo": imo, "testLab": "Total"})
         if not found:
             print(f"No documents found for IMO: {imo}")
         else:
             print(f"Found {len(found)} documents for IMO {imo}")
             docs.extend(found)
-            # docs.append(found)
+            # docs.append(found
 
     if not docs:
         print(f"No documents found for any IMO in list: {IMO_NUMBERS}")
@@ -203,7 +231,8 @@ if __name__ == "__main__":
     for doc in docs:
         for url in doc.get("location", []):
             if isinstance(url, str) and url.startswith("http"):
-                download_and_sort_pdf(url)
+                normalized_url = normalize_url(url)
+                download_and_sort_pdf(normalized_url)
             else:
                 print(f"Invalid or empty URL skipped in doc {doc.get('_id')}")
 
@@ -214,5 +243,7 @@ if __name__ == "__main__":
         print(f"PDF link map saved to {PDF_LINK_MAP_PATH}")
     else:
         print("No PDFs downloaded, so no link map saved.")
+
+
 
 
