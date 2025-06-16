@@ -174,9 +174,9 @@ def download_and_sort_pdf(url: str):
                 lab_name = get_canonical_lab_name(raw_lab_name)
             else:
                 print("EXTRACTING LABNAME FORM S3 LINK")
-                raw_lab_name_ = extract_lab_from_s3_url(url)
-                lab_name_ = get_canonical_lab_name(raw_lab_name_)
-                print(f"Lab name extracted from S3 URL: '{lab_name_}'")
+                raw_lab_name = extract_lab_from_s3_url(url)
+                lab_name = get_canonical_lab_name(raw_lab_name)
+                print(f"Lab name extracted from S3 URL: '{lab_name}'")
 
             final_dir = os.path.join(BASE_DOWNLOAD_DIR, lab_name)
             Path(final_dir).mkdir(parents=True, exist_ok=True)
@@ -211,8 +211,8 @@ if __name__ == "__main__":
 
     docs = []
     for imo in IMO_NUMBERS:
-        found = list(collection.find({"imo": imo}))
-        # found = collection.find_one({"imo": imo, "testLab": "Total"})
+        found = list(collection.find({"imo": 1028669, "testLab": "Tribocare"}))
+        # found = collection.find_one({"imo": imo, "testLab": "Tribocare"})
         if not found:
             print(f"No documents found for IMO: {imo}")
         else:
