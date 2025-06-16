@@ -183,14 +183,14 @@ if __name__ == "__main__":
 
     docs = []
     for imo in IMO_NUMBERS:
-        # found = list(collection.find({"imo": imo}))
-        found = collection.find_one({"imo": imo, "testLab": "Total"})
+        found = list(collection.find({"imo": imo, "testLab": "Total"}))
+        # found = collection.find_one({"imo": imo, "testLab": "Total"})
         if not found:
             print(f"No documents found for IMO: {imo}")
         else:
             print(f"Found {len(found)} documents for IMO {imo}")
-            # docs.extend(found)
-            docs.append(found)
+            docs.extend(found)
+            # docs.append(found)
 
     if not docs:
         print(f"No documents found for any IMO in list: {IMO_NUMBERS}")
