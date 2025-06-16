@@ -4,6 +4,8 @@ from pymongo import MongoClient
 from fieldmappings import *
 import re
 from dotenv import load_dotenv
+import datetime
+import copy
 
 # MongoDB config (reuse from data_retrieval.py or set here)
 load_dotenv()
@@ -38,12 +40,12 @@ def get_json_value(data: dict, field_path: str) -> str:
     parts = field_path.split(".")
     for part in parts:
         if isinstance(current, dict):
-            # Check if part includes a list index like samples[0]
-            match = re.match(r"(\w+)\[(\d+)\]", part)
+            # Support negative indices
+            match = re.match(r"(\w+)\[(-?\d+)\]", part)
             if match:
                 key, index = match.group(1), int(match.group(2))
                 current = current.get(key, [])
-                if isinstance(current, list) and 0 <= index < len(current):
+                if isinstance(current, list) and -len(current) <= index < len(current):
                     current = current[index]
                 else:
                     return ""
@@ -51,9 +53,9 @@ def get_json_value(data: dict, field_path: str) -> str:
                 current = current.get(part, "")
         else:
             return ""
-    return current if current is not None else ""
+    return current
 
-def get_samples_mapping(data: dict, sample_format_dict: dict) -> str:
+def get_samples_mapping(data: dict, sample_format_dict: dict) -> list:
     num_samples = len(data["oil_analysis_results"]["samples"])
     all_sample_details = []
     for i in range(num_samples):
@@ -71,8 +73,43 @@ def get_samples_mapping(data: dict, sample_format_dict: dict) -> str:
                     else:
                         one_sample_details[sub_key] = None
                 one_sample[key] = one_sample_details
+            else:
+                path = sample_format_dict[key]
+                if path is not None and 'samples[]' in path:
+                    new_path = path.replace('samples[]', f'samples[{i}]')
+                    one_sample[key] = get_json_value(data, new_path)
+                elif path is not None:
+                    one_sample[key] = get_json_value(data, path)
+                else:
+                    one_sample[key] = None
         all_sample_details.append(one_sample)
     return all_sample_details
+
+# def order_mother_fields(data):
+#     """Manually order the top-level fields in a specific order."""
+#     ordered_fields = [
+#         "testLab",
+#         "vesselName",
+#         "imo",
+#         "SampleIdentification",
+#         "EquipmentInformation",
+#         "Samples",
+#         "AnalysisResults",
+#         "QualityAndCompliance"
+#     ]
+    
+#     # Create new dict with ordered fields
+#     ordered_data = {}
+#     for field in ordered_fields:
+#         if field in data:
+#             ordered_data[field] = data[field]
+    
+#     # Add any remaining fields that weren't in our order list
+#     for field in data:
+#         if field not in ordered_fields:
+#             ordered_data[field] = data[field]
+            
+#     return ordered_data
 
 def create_final_json(json_data, field_map_dict):
     result_map = {}
@@ -85,13 +122,18 @@ def create_final_json(json_data, field_map_dict):
                     result_map[key][sub_key] = get_json_value(json_data, path)
                 else:
                     result_map[key][sub_key] = None
-        else:
-            # Only call get_samples_mapping if it's a list and first element is a dict
-            if isinstance(field_map_dict[key], list) and len(field_map_dict[key]) > 0 and isinstance(field_map_dict[key][0], dict):
-                result_map[key] = get_samples_mapping(json_data, field_map_dict[key][0])
+        elif isinstance(field_map_dict[key], str):
+            if "." in field_map_dict[key]:
+                result_map[key] = get_json_value(json_data, field_map_dict[key])
             else:
                 result_map[key] = field_map_dict[key]
+        elif isinstance(field_map_dict[key], list) and len(field_map_dict[key]) > 0 and isinstance(field_map_dict[key][0], dict):
+            result_map[key] = get_samples_mapping(json_data, field_map_dict[key][0])
+        else:
+            result_map[key] = field_map_dict[key]
     return result_map
+    # Order the mother fields
+    # return order_mother_fields(result_map)
 
 def map_fields(lab_name, data):
     field_map = LAB_FIELD_MAPS.get(lab_name)
@@ -105,6 +147,13 @@ def map_fields(lab_name, data):
 client = MongoClient(MONGO_URI)
 collection = client[DB_NAME][COLLECTION_NAME]
 
+PDF_LINK_MAP_PATH = os.path.join("pdfs", "pdf_link_map.json")
+if os.path.exists(PDF_LINK_MAP_PATH):
+    with open(PDF_LINK_MAP_PATH, "r") as f:
+        pdf_link_map = json.load(f)
+else:
+    pdf_link_map = {}
+
 # Walk through all JSON files in extracted_jsons
 for root, dirs, files in os.walk(EXTRACTED_JSONS_DIR):
     for file in files:
@@ -113,16 +162,29 @@ for root, dirs, files in os.walk(EXTRACTED_JSONS_DIR):
             with open(json_path, "r") as f:
                 data = json.load(f)
             lab_name = get_lab_name_from_path(json_path)
+            report_folder = os.path.splitext(os.path.basename(json_path))[0]  # e.g., '11622704'
+            rel_pdf_path = os.path.join(lab_name.capitalize(), f"{report_folder}.pdf")
+            pdf_link = pdf_link_map.get(rel_pdf_path, None)
             mapped = map_fields(lab_name, data)
             if mapped:
+                mapped["pdfLink"] = pdf_link
+                created_at = datetime.datetime.now(datetime.UTC)
+                mapped["createdAt"] = created_at
+
                 # Save to final_output/lab_name/filename
                 lab_output_dir = os.path.join(FINAL_OUTPUT_DIR, lab_name)
                 os.makedirs(lab_output_dir, exist_ok=True)
                 output_path = os.path.join(lab_output_dir, file)
+
+                # Make a copy for local save, convert createdAt to string
+                mapped_for_file = copy.deepcopy(mapped)
+                mapped_for_file["createdAt"] = created_at.isoformat()
+
                 with open(output_path, "w") as out_f:
-                    json.dump(mapped, out_f, indent=2)
+                    json.dump(mapped_for_file, out_f, indent=2)
                 print(f"Dumped mapped output for {file} (lab: {lab_name}) to {output_path}.")
-                collection.insert_one(mapped)
-                print(f"Pushed mapped output for {file} (lab: {lab_name}) to MongoDB.")
+
+                result = collection.insert_one(mapped)
+                print(f"Pushed mapped output for {file} (lab: {lab_name}) to MongoDB. _id: {result.inserted_id}")
             else:
                 print(f"Skipped {file} (no mapping for lab: {lab_name})") 

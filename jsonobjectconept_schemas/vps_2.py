@@ -1,4 +1,4 @@
-from contextgem import JsonObjectConcept
+from contextgem import JsonObjectConcept 
 from typing import Union
 
 # Schema for extracting header, summary, and general equipment details

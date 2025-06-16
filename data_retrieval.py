@@ -13,12 +13,15 @@ from dotenv import load_dotenv
 import openai
 import difflib
 import base64
+import cv2
+from contextgem import Document, DocumentLLM, StringConcept, image_to_base64, Image
+import json
 
 # === CONFIGURATION ===
 load_dotenv()
 
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-openai.api_key = OPENAI_API_KEY
+# OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+# openai.api_key = OPENAI_API_KEY
 
 MONGO_URI = os.getenv("MONGO_URI")
 DB_NAME = "syia-etl-dev"
@@ -31,84 +34,109 @@ VALID_TESTLABS = [
 ]
 LAB_ALIASES = {
     "LUBDIAG": "Total",
+    "lubmarine": "Total",
     "Mobil Serv": "MobilServ"
 }
 TIMEOUT = 10
 BASE_DOWNLOAD_DIR = "./pdfs"
 
 ALL_LABS = VALID_TESTLABS + list(LAB_ALIASES.keys())
-
-def llm_classify_lab_name(image, valid_labs: list, lab_aliases: dict) -> str:
-    """
-    Sends the image to OpenAI's gpt-4o-mini model to classify the lab name.
-    Includes information about lab aliases in the prompt.
-    """
-    # Create alias information string
-    alias_info = "Lab aliases: " + ", ".join([f"{alias} -> {actual}" for alias, actual in lab_aliases.items()])
     
-    prompt = (
-        f"You are given the top portion of a PDF first page containing a lab test report. "
-        f"Classify the lab from this list: {', '.join(ALL_LABS)}. "
-        f"Lab aliases: {alias_info}. "
-        f"ONLY use the logo or company name appearing in the top header of the page. "
-        f"If you see a lab alias, return the canonical lab name. "
-        f"If no known lab name or alias is visible in the top branding section, return 'UNKNOWN_LAB'."
-    )
-    try:
-        # Convert image to base64
-        buffered = io.BytesIO()
-        image.save(buffered, format="PNG")
-        img_b64 = base64.b64encode(buffered.getvalue()).decode()
-        client = openai.OpenAI(api_key=OPENAI_API_KEY)
-        response = client.chat.completions.create(
-            model="gpt-4o",
-            messages=[
-                {"role": "user", "content": [
-                    {"type": "text", "text": prompt},
-                    {"type": "image_url", "image_url": {"url": f"data:image/png;base64,{img_b64}"}}
-                ]}
-            ],
-            max_tokens=10,
-            temperature=0
-        )
-        lab_name = response.choices[0].message.content.strip()
-        # Map alias to canonical
-        if lab_name in lab_aliases:
-            # print(f"Lab found in aliases: {lab_name}")
-            return lab_aliases[lab_name]
-        if lab_name in valid_labs:
-            # print(f"Lab found in valid labs: {lab_name}")
-            return lab_name
-        return "UNKNOWN_LAB"
-    except Exception as e:
-        print(f"LLM error: {e}")
+def get_canonical_lab_name(lab_name: str) -> str:
+    """Convert lab name to its canonical form using aliases."""
+    if not lab_name:
         return "ERROR_PARSING"
+        
+    # Convert to lowercase for case-insensitive comparison
+    lab_name_lower = lab_name.lower()
     
-def extract_lab_name_from_pdf(file_path: str) -> str:
+    # Check if it's an alias (case-insensitive)
+    for alias, canonical in LAB_ALIASES.items():
+        if lab_name_lower == alias.lower():
+            print(f"Converting alias '{lab_name}' to canonical name '{canonical}'")
+            return canonical
+    
+    # If not an alias, check if it's a valid lab name (case-insensitive)
+    for valid_lab in VALID_TESTLABS:
+        if lab_name_lower == valid_lab.lower():
+            return valid_lab
+            
+    print(f"Warning: Unknown lab name '{lab_name}' - using as is")
+    return lab_name
+
+def extract_lab_report_provider_from_pdf(file_path):
+    """
+    Extracts the lab report provider from the top quarter of a PDF's first page.
+    Uses OpenCV for image processing and contextgem for lab name extraction.
+    """
     try:
+        # Open PDF and get first page as image
         doc = fitz.open(file_path)
         page = doc[0]
-        # Extract header region as image (top 200px)
-        header_clip = fitz.Rect(0, 0, page.rect.width, 200)
-        pix = page.get_pixmap(clip=header_clip)
+        
+        # Convert page to image
+        pix = page.get_pixmap()
         img_bytes = pix.tobytes("png")
-        image = Image.open(io.BytesIO(img_bytes))
-        # OCR
-        ocr_text = pytesseract.image_to_string(image).upper()
-        # print(ocr_text)
-        for lab in ALL_LABS:
-            if lab.upper() in ocr_text:
-                doc.close()
-                # print(f"Lab found in OCR: {lab}")
-                return LAB_ALIASES.get(lab, lab)
-        # Fallback: send full page to LLM
-        page_image = Image.open(io.BytesIO(page.get_pixmap().tobytes("png")))
-        lab_name = llm_classify_lab_name(page_image, VALID_TESTLABS, LAB_ALIASES)
         doc.close()
-        return lab_name
+        
+        # Save to temp file for OpenCV
+        import tempfile
+        with tempfile.NamedTemporaryFile(suffix='.png', delete=False) as tmp:
+            tmp.write(img_bytes)
+            tmp_path = tmp.name
+        
+        # Process with OpenCV
+        img = cv2.imread(tmp_path)
+        if img is None:
+            raise FileNotFoundError(f"Could not read the image file: {tmp_path}")
+
+        # Crop to top quarter
+        height, width, _ = img.shape
+        top_quarter_height = height // 4
+        cropped_img = img[0:top_quarter_height, 0:width]
+        
+        # Convert to base64
+        _, buffer = cv2.imencode('.jpg', cropped_img)
+        cropped_base64 = base64.b64encode(buffer).decode('utf-8')
+        
+        # Clean up temp file
+        os.unlink(tmp_path)
+        
+        # Use contextgem for extraction
+        doc_image = Image(mime_type="image/jpeg", base64_data=cropped_base64)
+        doc = Document(images=[doc_image])
+        
+        name_concept = StringConcept(
+            name="lab_report_provider_company",
+            llm_role="extractor_vision",
+            description="""Name of the company that provided the report,
+            extracted from the company logo in the top section of the image
+            it should be one of these 10,
+            castrol,chevron,eneos,gulf,lubmarine,mobil,tribocare,viswa,vps,nof""",
+        )
+        
+        doc.add_concepts([name_concept])
+        
+        vlm = DocumentLLM(
+            model="gemini/gemini-2.0-flash",
+            api_key=os.getenv("GOOGLE_API_KEY"),
+            role="extractor_vision",
+        )
+        
+        extracted_concepts = vlm.extract_concepts_from_document(doc)
+        
+        # Check if any items were extracted before accessing the value
+        if extracted_concepts and extracted_concepts[0].extracted_items:
+            return extracted_concepts[0].extracted_items[0].value
+        else:
+            return "Provider not found"
+            
     except Exception as e:
         print(f"❗ Error processing PDF {file_path}: {e}")
         return "ERROR_PARSING"
+
+# Replace extract_lab_name_from_pdf with the new provider
+extract_lab_name_from_pdf = extract_lab_report_provider_from_pdf
 
 def download_and_sort_pdf(url: str):
     try:
@@ -124,14 +152,20 @@ def download_and_sort_pdf(url: str):
                 f.write(r.content)
             print(f"Downloaded to {temp_path}")
 
-            # Classify
-            lab_name = extract_lab_name_from_pdf(temp_path)
+            # Classify and get canonical lab name
+            raw_lab_name = extract_lab_name_from_pdf(temp_path)
+            print(f"Raw lab name detected: '{raw_lab_name}'")
+            lab_name = get_canonical_lab_name(raw_lab_name)
             final_dir = os.path.join(BASE_DOWNLOAD_DIR, lab_name)
             Path(final_dir).mkdir(parents=True, exist_ok=True)
 
             final_path = os.path.join(final_dir, file_name)
             os.rename(temp_path, final_path)
-            print(f"📁 Moved to {final_path}")
+            print(f"📁 Moved to {final_path} (Lab: {lab_name})")
+
+            # Save mapping from relative PDF path to URL
+            rel_pdf_path = os.path.relpath(final_path, BASE_DOWNLOAD_DIR)
+            pdf_link_map[rel_pdf_path] = url
         else:
             print(f"Skipped non-PDF or failed request ({r.status_code}) for {url}")
     except Exception as e:
@@ -149,14 +183,14 @@ if __name__ == "__main__":
 
     docs = []
     for imo in IMO_NUMBERS:
-        found = list(collection.find({"imo": imo}))
-        # found = collection.find_one({"imo": imo, "testLab": "Castrol"})
+        # found = list(collection.find({"imo": imo}))
+        found = collection.find_one({"imo": imo, "testLab": "Total"})
         if not found:
             print(f"No documents found for IMO: {imo}")
         else:
             print(f"Found {len(found)} documents for IMO {imo}")
-            docs.extend(found)
-            # docs.append(found)
+            # docs.extend(found)
+            docs.append(found)
 
     if not docs:
         print(f"No documents found for any IMO in list: {IMO_NUMBERS}")
@@ -165,9 +199,20 @@ if __name__ == "__main__":
     print(f"Total documents found: {len(docs)}")
 
     # === PROCESSING LOOP ===
+    pdf_link_map = {}
     for doc in docs:
         for url in doc.get("location", []):
             if isinstance(url, str) and url.startswith("http"):
                 download_and_sort_pdf(url)
             else:
                 print(f"Invalid or empty URL skipped in doc {doc.get('_id')}")
+
+    if pdf_link_map:
+        PDF_LINK_MAP_PATH = os.path.join(BASE_DOWNLOAD_DIR, "pdf_link_map.json")
+        with open(PDF_LINK_MAP_PATH, "w") as f:
+            json.dump(pdf_link_map, f, indent=2)
+        print(f"PDF link map saved to {PDF_LINK_MAP_PATH}")
+    else:
+        print("No PDFs downloaded, so no link map saved.")
+
+
