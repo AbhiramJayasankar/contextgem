@@ -3,6 +3,7 @@ import json
 from extract_functions.extract import process_image_and_extract_data
 from extract_functions.json_merge import merge_all_jsons
 from dotenv import load_dotenv
+import sys
 
 # Load environment variables
 load_dotenv()
@@ -12,6 +13,8 @@ root_input_directory = "images"
 root_output_directory = "extracted_jsons"
 
 print("--- Starting Folder-Based Extraction and Saving Process ---")
+
+num_reports_saved = 0  # Track number of reports saved
 
 # Walk through the input directory structure
 for dirpath, dirnames, filenames in os.walk(root_input_directory):
@@ -83,6 +86,7 @@ for dirpath, dirnames, filenames in os.walk(root_input_directory):
                 json.dump(final_output, f, indent=4)
             
             print(f"Successfully saved report to: {output_filepath}")
+            num_reports_saved += 1
 
         except Exception as e:
             print(f"Error saving file for report {dirpath}. Reason: {e}")
@@ -93,3 +97,7 @@ for dirpath, dirnames, filenames in os.walk(root_input_directory):
     # --- END: New Saving Logic ---
 
 print("\n\n--- Process Complete ---")
+
+if num_reports_saved == 0:
+    print("\n[ERROR] No data was extracted or saved for any report. Exiting with error code.")
+    sys.exit(1)

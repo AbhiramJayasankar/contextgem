@@ -18,7 +18,8 @@ castrol_field_map = {
     "sampleLocation": "report_header.sample_identification.sampling_point",
     "machineryUnit": None,
     "portLanded": "report_header.logistics.port_landed",
-    "oilGrade": "report_header.product_information.product_in_use_actual"
+    "oilGrade": "report_header.product_information.product_in_use_actual",
+    "oilSystemCapacity": None,
     
   },
   "Samples": [
@@ -35,7 +36,6 @@ castrol_field_map = {
         "oilServiceHours": "oil_analysis_results.samples[].sample_details.oil_life_hrs",
         "oilAddedVolume": None,
         "dailyMakeupVolume": None,
-        "oilSystemCapacity": None,
         "consumptionRate": None
       },
       "PhysicalAndChemicalProperties": {
@@ -115,10 +115,17 @@ castrol_field_map = {
 
 
 chevron_field_map = {
-        "testLab": "report_header.report_provider_company",
-    "VesselAndEquipment": {
-        "vesselName": "report_header.vessel",
-        "imo": "report_header.imo",
+    "testLab": "Chevron",
+    "vesselName": "report_header.vessel",
+    "imo": "report_header.imo",
+
+"SampleIdentification":{
+    "sampleNumber": "oil_analysis_results.samples[-1].sample_logistics.request_no",
+    "bottleNumber": None,
+    "analysisNumber": None},
+
+    "EquipmentInformation": {
+        "testLabExtracted": "report_header.report_provider_company",
         "customerCompany": "report_header.customer",
         "machineryName": "report_header.system",
         "equipmentMake": None,
@@ -128,18 +135,14 @@ chevron_field_map = {
         "machineryUnit": None,
         "portLanded": "oil_analysis_results.samples[1].sample_logistics.port",
         "oilGrade": "oil_analysis_results.samples[1].sample_logistics.product",
-        "analysisNumber": None
+        "oilSystemCapacity": None
     },
     "Samples": [
-        {
-    "SampleIdentification": {
+{
         "sampleNumber": "oil_analysis_results.samples[].sample_logistics.request_no",
-        "bottleNumber": None
-    },
-            "DatesAndLocations": {
-                "sampleDate": "oil_analysis_results.samples[].sample_logistics.date_sampled",
-                "dateReported": "oil_analysis_results.samples[].sample_logistics.date_reported"
-            },
+        "sampleDate": "oil_analysis_results.samples[].sample_logistics.date_sampled",
+        "dateReported": "oil_analysis_results.samples[].sample_logistics.date_reported",
+
             "OilAndOperatingConditions": {
                 "oilBrand": None,
                 "fuelGrade": None,
@@ -148,7 +151,6 @@ chevron_field_map = {
                 "oilServiceHours": "oil_analysis_results.samples[].sample_logistics.product_service_hrs",
                 "oilAddedVolume": None,
                 "dailyMakeupVolume": None,
-                "oilSystemCapacity": None,
                 "consumptionRate": "oil_analysis_results.samples[].sample_logistics.consumption_l_d"
             },
             "PhysicalAndChemicalProperties": {
@@ -208,7 +210,7 @@ chevron_field_map = {
                 "barium": None
             }
         }
-    ],
+    ], 
     "AnalysisResults": {
         "oilRating": None,
         "unitRating": None,
@@ -228,11 +230,17 @@ chevron_field_map = {
 
 
 eneos_field_map = {
-        "testLab": "report_header.report_provider_company",
-
-    "VesselAndEquipment": {
+        "testLab": "ENOS",
         "vesselName": "report_header.equipment_information.vessel_name",
         "imo": "report_header.equipment_information.imo_number",
+
+    "SampleIdentification":{
+        "sampleNumber": "oil_analysis_results.samples[-1].sample_information.lab_order_number",
+        "bottleNumber": None,
+        "analysisNumber": None},
+
+    "EquipmentInformation": {
+        "testLabExtracted": "report_header.report_provider_company",
         "customerCompany": "report_header.equipment_information.company_name",
         "machineryName": "report_header.equipment_information.machinery_unit",
         "equipmentMake": "report_header.equipment_information.equipment_make",
@@ -242,18 +250,14 @@ eneos_field_map = {
         "machineryUnit": None,
         "portLanded": None,
         "oilGrade": "oil_analysis_results.samples[3].usage_information.oilgrade_in_use",
-        "analysisNumber": None
+        "oilSystemCapacity": None
     },
     "Samples": [
         {
-    "SampleIdentification": {
         "sampleNumber": "oil_analysis_results.samples[].sample_information.lab_order_number",
-        "bottleNumber": None,
-    },
-            "DatesAndLocations": {
-                "sampleDate": "oil_analysis_results.samples[].sample_information.sampling_date",
-                "dateReported": "oil_analysis_results.samples[].sample_information.date_reported"
-            },
+        "sampleDate": "oil_analysis_results.samples[].sample_information.sampling_date",
+        "dateReported": "oil_analysis_results.samples[].sample_information.date_reported",
+        
             "OilAndOperatingConditions": {
                 "oilBrand": None,
                 "fuelGrade": "oil_analysis_results.samples[].usage_information.fuel_used",
@@ -262,7 +266,6 @@ eneos_field_map = {
                 "oilServiceHours": "oil_analysis_results.samples[].usage_information.oil_life_h",
                 "oilAddedVolume": "oil_analysis_results.samples[].usage_information.oil_added_l",
                 "dailyMakeupVolume": None,
-                "oilSystemCapacity": None,
                 "consumptionRate": None
             },
             "PhysicalAndChemicalProperties": {
@@ -333,7 +336,7 @@ eneos_field_map = {
         "sampleFrequency": None
     },
     "QualityAndCompliance": {
-        "reportStatus": "oil_analysis_results.samples[3].usage_information.lubricant_condition",
+        "reportStatus": "oil_analysis_results.samples[-1].usage_information.lubricant_condition",
         "report ": None,
         "frequency": None,
         "dueStatus": None
@@ -341,11 +344,20 @@ eneos_field_map = {
 }
 
 
+
 gulf_field_map = {
-        "testLab": "report_header.report_provider_company",
-    "VesselAndEquipment": {
+        "testLab": "Gulf",
         "vesselName": "report_header.equipment_information.vessel_name",
         "imo": "report_header.equipment_information.imo_number",
+
+    "SampleIdentification": {
+        "sampleNumber": "oil_analysis_results.samples[-1].sample_information.sample_no",
+        "bottleNumber": "oil_analysis_results.samples[-1].sample_information.bottle_no",
+        "analysisNumber": None
+    },
+
+    "EquipmentInformation": {
+        "testLabExtracted": "report_header.report_provider_company",
         "customerCompany": "report_header.equipment_information.customer_name",
         "machineryName": "report_header.equipment_information.machinery_unit",
         "equipmentMake": "report_header.equipment_information.equipment_make",
@@ -353,20 +365,16 @@ gulf_field_map = {
         "equipmentSerial": "report_header.equipment_information.equipment_sn",
         "sampleLocation": "report_header.equipment_information.sample_location",
         "machineryUnit": None,
-        "portLanded": "oil_analysis_results.samples[4].sample_information.port_of_landing",
-        "oilGrade": "oil_analysis_results.samples[4].sample_information.oil_on_label",
-        "analysisNumber": None
+        "portLanded": "oil_analysis_results.samples[-1].sample_information.port_of_landing",
+        "oilGrade": "oil_analysis_results.samples[-1].sample_information.oil_on_label",
+        "oilSystemCapacity": None
     },
     "Samples": [
         {
-    "SampleIdentification": {
         "sampleNumber": "oil_analysis_results.samples[].sample_information.sample_no",
-        "bottleNumber": "oil_analysis_results.samples[].sample_information.bottle_no"
-    },
-            "DatesAndLocations": {
-                "sampleDate": "oil_analysis_results.samples[].sample_information.sampled_date",
-                "dateReported": None
-            },
+        "sampleDate": "oil_analysis_results.samples[].sample_information.sampled_date",
+        "dateReported": None,
+
             "OilAndOperatingConditions": {
                 "oilBrand": "oil_analysis_results.samples[].sample_information.oil_on_label",
                 "fuelGrade": None,
@@ -375,7 +383,6 @@ gulf_field_map = {
                 "oilServiceHours": "oil_analysis_results.samples[].sample_information.lubricant_hours",
                 "oilAddedVolume": None,
                 "dailyMakeupVolume": None,
-                "oilSystemCapacity": None,
                 "consumptionRate": None
             },
             "PhysicalAndChemicalProperties": {
@@ -446,7 +453,7 @@ gulf_field_map = {
         "sampleFrequency": None
     },
     "QualityAndCompliance": {
-        "reportStatus": "oil_analysis_results.samples[4].sample_information.lubricant_condition",
+        "reportStatus": "oil_analysis_results.samples[-1].sample_information.lubricant_condition",
         "report ": None,
         "frequency": None,
         "dueStatus": None
@@ -454,10 +461,18 @@ gulf_field_map = {
 }
 
 total_field_map = {
-        "testLab": "report_header.report_provider_company",
-    "VesselAndEquipment": {
+        "testLab": "Total",
         "vesselName": "report_header.equipment_information.vessel_name",
-        "imo": "report_header.equipment_information.imo",
+        "imo": "report_header.equipment_information.imo", #Lubmarine reports do not contain IMO number
+
+    "SampleIdentification": {
+        "sampleNumber": "report_header.equipment_information.sample_no",
+        "bottleNumber": None,
+        "analysisNumber": "report_header.equipment_information.analysis_no"
+    },
+
+    "EquipmentInformation": {
+        "testLabExtracted": "report_header.report_provider_company",
         "customerCompany": "report_header.equipment_information.company",
         "machineryName": "report_header.equipment_information.unit_name",
         "equipmentMake": None,
@@ -465,20 +480,16 @@ total_field_map = {
         "equipmentSerial": None,
         "sampleLocation": "report_header.equipment_information.description",
         "machineryUnit": "report_header.equipment_information.unit_id",
-        "portLanded": "oil_analysis_results.samples[].sample_data.port_landed",
+        "portLanded": "oil_analysis_results.samples[-1].sample_data.port_landed",
         "oilGrade": "report_header.equipment_information.oil_type",
-        "analysisNumber": "report_header.equipment_information.analysis_no"
+        "oilSystemCapacity": None,
     },
     "Samples": [
-        {
-    "SampleIdentification": {
+{
         "sampleNumber": "oil_analysis_results.samples[].sample_data.sample_no",
-        "bottleNumber": None
-    },
-            "DatesAndLocations": {
-                "sampleDate": "oil_analysis_results.samples[].sample_data.date_sampled",
-                "dateReported": "report_header.equipment_information.reported"
-            },
+        "sampleDate": "oil_analysis_results.samples[].sample_data.date_sampled",
+        "dateReported": "report_header.equipment_information.reported",
+
             "OilAndOperatingConditions": {
                 "oilBrand": "oil_analysis_results.samples[].sample_data.oil_on_label",
                 "fuelGrade": None,
@@ -487,7 +498,6 @@ total_field_map = {
                 "oilServiceHours": "oil_analysis_results.samples[].sample_data.oil_life",
                 "oilAddedVolume": "oil_analysis_results.samples[].sample_data.top_up_volume",
                 "dailyMakeupVolume": None,
-                "oilSystemCapacity": None,
                 "consumptionRate": None
             },
             "PhysicalAndChemicalProperties": {
@@ -558,48 +568,52 @@ total_field_map = {
         "sampleFrequency": None
     },
     "QualityAndCompliance": {
-        "reportStatus": "oil_analysis_results.samples[].sample_data.status",
+        "reportStatus": "oil_analysis_results.samples[-1].sample_data.status",
         "report ": None,
         "frequency": None,
         "dueStatus": None
     }
 }
 
+
 tribocare_field_map = {
-    "testLab": "report_header.report_provider_company",
-  "VesselAndEquipment": {
+    "testLab": "Tribocare",
     "vesselName": "report_header.vessel_name",
     "imo": "report_header.vessel_imo",  
+
+  "SampleIdentification": {
+    "sampleNumber": "oil_analysis_results.samples[0].sample_details.sample_no",
+    "bottleNumber": "oil_analysis_results.samples[0].sample_details.bottle_no",
+    "analysisNumber": None
+  },
+
+  "EquipmentInformation": {
+    "testLabExtracted": "report_header.report_provider_company",
     "customerCompany": None,
-    "machineryName": "report_header.asset_description",
+    "machineryName": "report_header.machinery_name",
     "equipmentMake": "report_header.manufacturer_details.manufacturer",
     "equipmentModel": "report_header.manufacturer_details.model",
     "equipmentSerial": None,
     "sampleLocation": None,
     "machineryUnit": None,
     "portLanded": "report_header.manufacturer_details.port_landed",
-    "oilGrade": "oil_analysis_results.samples[].sample_details.oil_grade_in_use",
-    "analysisNumber": None
+    "oilGrade": "oil_analysis_results.samples[0].sample_details.oil_grade_in_use",
+    "oilSystemCapacity": "report_header.manufacturer_details.volume_ltr"
   },
   "Samples": [
-    {
-  "SampleIdentification": {
-    "sampleNumber": "oil_analysis_results.samples[].sample_details.sample_no",
-    "bottleNumber": "oil_analysis_results.samples[].sample_details.bottle_no"
-  },
-      "DatesAndLocations": {
+      {
         "sampleDate": "oil_analysis_results.samples[].sample_details.sampled_date",
-        "dateReported": None
-      },
+        "dateReported": None,
+        "sampleNumber": "oil_analysis_results.samples[].sample_details.sample_no",
+
       "OilAndOperatingConditions": {
         "oilBrand": None,
-        "fuelGrade": "report_header.product_information.fuel_grade_or_type",
+        "fuelGrade": "report_header.product_information.fuel_grade_or_type", 
         "fuelSulfurContent": None,
         "equipmentHours": "oil_analysis_results.samples[].sample_details.unit_service_hrs",
         "oilServiceHours": "oil_analysis_results.samples[].sample_details.oil_service_hrs",
         "oilAddedVolume": None,
         "dailyMakeupVolume": "oil_analysis_results.samples[].sample_details.daily_makeup_l",
-        "oilSystemCapacity": "report_header.manufacturer_details.volume_ltr",
         "consumptionRate": None
       },
       "PhysicalAndChemicalProperties": {
@@ -670,7 +684,7 @@ tribocare_field_map = {
     "sampleFrequency": None
   },
   "QualityAndCompliance": {
-    "reportStatus": "report_header.diagnosis_summary.diagnosis",
+    "reportStatus": "oil_analysis_results.samples[0].sample_details.rating",
     "report ": None,
     "frequency": None,
     "dueStatus": None
@@ -678,31 +692,35 @@ tribocare_field_map = {
 }
 
 viswa_field_map = {
-        "testLab": "report_header.report_provider_company",
-    "VesselAndEquipment": {
-        "vesselName": "report_header.customer_details.vessel",
-        "imo": "report_header.customer_details.imo_no",
+    "testLab": "Viswa",
+    "vesselName": "report_header.customer_details.vessel",
+    "imo": "report_header.customer_details.imo_no",
+
+    "SampleIdentification": {
+        "sampleNumber": "oil_analysis_results.samples[0].general_details.report_id",
+        "bottleNumber": "oil_analysis_results.samples[0].general_details.bottle_identification_no",
+        "analysisNumber": None
+    },
+        
+    "EquipmentInformation": {
+        "testLabExtracted": "report_header.report_provider_company",
         "customerCompany": "report_header.customer_details.customer",
         "machineryName": "report_header.customer_details.equipment",
         "equipmentMake": None,
         "equipmentModel": None,
         "equipmentSerial": None,
-        "sampleLocation": "oil_analysis_results.samples[].general_details.sampling_point",
+        "sampleLocation": "oil_analysis_results.samples[0].general_details.sampling_point",
         "machineryUnit": None,
-        "portLanded": "oil_analysis_results.samples[].general_details.place",
+        "portLanded": "oil_analysis_results.samples[0].general_details.place",
         "oilGrade": "report_header.customer_details.brand_and_grade",
-        "analysisNumber": None
+        "oilSystemCapacity": None
     },
     "Samples": [
         {
-    "SampleIdentification": {
         "sampleNumber": "oil_analysis_results.samples[].general_details.report_id",
-        "bottleNumber": "oil_analysis_results.samples[].general_details.bottle_identification_no"
-    },
-            "DatesAndLocations": {
-                "sampleDate": "oil_analysis_results.samples[].general_details.sampling_date",
-                "dateReported": "oil_analysis_results.samples[].general_details.report_date"
-            },
+        "sampleDate": "oil_analysis_results.samples[].general_details.sampling_date",
+        "dateReported": "oil_analysis_results.samples[].general_details.report_date",
+
             "OilAndOperatingConditions": {
                 "oilBrand": None,
                 "fuelGrade": None,
@@ -711,7 +729,6 @@ viswa_field_map = {
                 "oilServiceHours": "oil_analysis_results.samples[].general_details.total_lubricant_hours",
                 "oilAddedVolume": "oil_analysis_results.samples[].general_details.oil_added_ltrs",
                 "dailyMakeupVolume": None,
-                "oilSystemCapacity": None,
                 "consumptionRate": None
             },
             "PhysicalAndChemicalProperties": {
@@ -782,7 +799,7 @@ viswa_field_map = {
         "sampleFrequency": None
     },
     "QualityAndCompliance": {
-        "reportStatus": "oil_analysis_results.samples[].general_details.oil_condition_rating",
+        "reportStatus": "oil_analysis_results.samples[0].general_details.oil_condition_rating",
         "report ": None,
         "frequency": None,
         "dueStatus": None
@@ -790,97 +807,100 @@ viswa_field_map = {
 }
 
 vps_field_map = {
-        "testLab": "report_header.report_provider_company",
-    "VesselAndEquipment": {
+        "testLab": "VPS",
         "vesselName": "report_header.vessel_name",
         "imo": "report_header.vessel_imo",
+
+    "SampleIdentification": {
+        "sampleNumber": "oil_analysis_results.samples[0].test_results.sample_number",
+        "bottleNumber": None,
+        "analysisNumber": None
+    },
+
+    "EquipmentInformation": {
+        "testLabExtracted": "report_header.report_provider_company",
         "customerCompany": None,
         "machineryName": "report_header.part_name",
         "equipmentMake": "report_header.sample_details.manufacturer",
         "equipmentModel": "report_header.sample_details.model",
         "equipmentSerial": None,
-        "sampleLocation": "test_results.sampling_point",
+        "sampleLocation": "oil_analysis_results.samples[0].test_results.sampling_point",
         "machineryUnit": None,
         "portLanded": None,
-        "oilGrade": "test_results.lube_grade",
-        "analysisNumber": None
+        "oilGrade": "oil_analysis_results.samples[0].test_results.lube_grade",
+        "oilSystemCapacity": "report_header.sample_details.oil_quantity_in_system_litres",
     },
     "Samples": [
-        {
-    "SampleIdentification": {
-        "sampleNumber": "test_results.sample_number",
+{
+        "sampleNumber": "oil_analysis_results.samples[].test_results.sample_number",
         "bottleNumber": None,
-    },
-            "DatesAndLocations": {
-                "sampleDate": "test_results.sampling_date",
-                "dateReported": None
-            },
+        "sampleDate": "oil_analysis_results.samples[].test_results.sampling_date",
+ 
             "OilAndOperatingConditions": {
                 "oilBrand": "report_header.sample_details.oil_brand",
-                "fuelGrade": "test_results.fuel_in_use",
+                "fuelGrade": "oil_analysis_results.samples[].test_results.fuel_in_use",
                 "fuelSulfurContent": None,
-                "equipmentHours": "test_results.unit_service_hrs",
-                "oilServiceHours": "test_results.oil_service_hrs",
+                "equipmentHours": "oil_analysis_results.samples[].test_results.unit_service_hrs",
+                "oilServiceHours": "oil_analysis_results.samples[].test_results.oil_service_hrs",
                 "oilAddedVolume": None,
-                "dailyMakeupVolume": "test_results.oil_top_up_volume_daily",
-                "oilSystemCapacity": "report_header.sample_details.oil_quantity_in_system_litres",
+                "dailyMakeupVolume": "oil_analysis_results.samples[].test_results.oil_top_up_volume_daily",
                 "consumptionRate": None
             },
             "PhysicalAndChemicalProperties": {
                 "appearance": None,
                 "color": None,
-                "viscosity40c": "lubricant_data.viscosity_at_40c",
-                "viscosity100c": "lubricant_data.viscosity_at_100c",
-                "viscosityIndex": "lubricant_data.viscosity_index",
-                "acidNumber": "lubricant_data.acid_number",
+                "viscosity40c": "oil_analysis_results.samples[].lubricant_data.viscosity_at_40c",
+                "viscosity100c": "oil_analysis_results.samples[].lubricant_data.viscosity_at_100c",
+                "viscosityIndex": "oil_analysis_results.samples[].lubricant_data.viscosity_index",
+                "acidNumber": "oil_analysis_results.samples[].lubricant_data.acid_number",
                 "baseNumber": None,
-                "waterContent": "contaminants.water",
+                "waterContent": "oil_analysis_results.samples[].contaminants.water",
                 "freeWater": None,
                 "chlorideContent": None,
                 "flashPoint": None,
-                "oxidationFtir": "lubricant_data.oxidation",
+                "oxidationFtir": "oil_analysis_results.samples[].lubricant_data.oxidation",
                 "nitrationFtir": None,
                 "sootContent": None,
                 "pqIndex": None
             },
             "ParticleContamination": {
-                "particles4um": "contaminants.particle_count_4_micron_c",
-                "particles6um": "contaminants.particle_count_6_micron_c",
-                "particles14um": "contaminants.particle_count_14_micron_c",
+                "particles4um": "oil_analysis_results.samples[].contaminants.particle_count_4_micron_c",
+                "particles6um": "oil_analysis_results.samples[].contaminants.particle_count_6_micron_c",
+                "particles14um": "oil_analysis_results.samples[].contaminants.particle_count_14_micron_c",
                 "particles21um": None,
                 "particles38um": None,
                 "particles70um": None,
-                "isoCode": "contaminants.iso_4406_code_number"
+                "isoCode": "oil_analysis_results.samples[].contaminants.iso_4406_code_number"
             },
             "WearElements": {
-                "iron": "wear.iron",
-                "copper": "wear.copper",
-                "lead": "wear.lead",
-                "tin": "wear.tin",
-                "aluminum": "wear.aluminium",
-                "chromium": "wear.chromium",
-                "nickel": "contaminants.nickel",
-                "silver": "wear.silver",
-                "molybdenum": "wear.molybdenum",
-                "titanium": "wear.titanium",
-                "manganese": "wear.manganese",
-                "antimony": "additives_ppm.antimony"
+                "iron": "oil_analysis_results.samples[].wear.iron",
+                "copper": "oil_analysis_results.samples[].wear.copper",
+                "lead": "oil_analysis_results.samples[].wear.lead",
+                "tin": "oil_analysis_results.samples[].wear.tin",
+                "aluminum": "oil_analysis_results.samples[].wear.aluminium",
+                "chromium": "oil_analysis_results.samples[].wear.chromium",
+                "nickel": "oil_analysis_results.samples[].contaminants.nickel",
+                "silver": "oil_analysis_results.samples[].wear.silver",
+                "molybdenum": "oil_analysis_results.samples[].wear.molybdenum",
+                "titanium": "oil_analysis_results.samples[].wear.titanium",
+                "manganese": "oil_analysis_results.samples[].wear.manganese",
+                "antimony": "oil_analysis_results.samples[].additives_ppm.antimony"
             },
             "ContaminantElements": {
-                "silicon": "contaminants.silicon",
-                "sodium": "contaminants.sodium",
-                "potassium": "contaminants.potassium",
-                "boron": "additives_ppm.boron",
-                "vanadium": "contaminants.vanadium",
-                "lithium": "additives_ppm.lithium",
-                "cadmium": "additives_ppm.cadmium"
+                "silicon": "oil_analysis_results.samples[].contaminants.silicon",
+                "sodium": "oil_analysis_results.samples[].contaminants.sodium",
+                "potassium": "oil_analysis_results.samples[].contaminants.potassium",
+                "boron": "oil_analysis_results.samples[].additives_ppm.boron",
+                "vanadium": "oil_analysis_results.samples[].contaminants.vanadium",
+                "lithium": "oil_analysis_results.samples[].additives_ppm.lithium",
+                "cadmium": "oil_analysis_results.samples[].additives_ppm.cadmium"
             },
             "AdditiveElements": {
-                "calcium": "additives_ppm.calcium",
-                "magnesium": "additives_ppm.magnesium",
-                "zinc": "additives_ppm.zinc",
-                "phosphorus": "additives_ppm.phosphorus",
-                "barium": "additives_ppm.barium"
+                "calcium": "oil_analysis_results.samples[].additives_ppm.calcium",
+                "magnesium": "oil_analysis_results.samples[].additives_ppm.magnesium",
+                "zinc": "oil_analysis_results.samples[].additives_ppm.zinc",
+                "phosphorus": "oil_analysis_results.samples[].additives_ppm.phosphorus",
+                "barium": "oil_analysis_results.samples[].additives_ppm.barium"
             }
         }
     ],
@@ -894,40 +914,43 @@ vps_field_map = {
         "sampleFrequency": None
     },
     "QualityAndCompliance": {
-        "reportStatus": "test_results.rating",
+        "reportStatus": "oil_analysis_results.samples[0].test_results.rating",
         "report ": None,
         "frequency": None,
         "dueStatus": None
     }
 }
 
-
 nof_field_map = {
-        "testLab": "report_header.report_provider_company",
-    "VesselAndEquipment": {
+        "testLab": "NOF",
         "vesselName": "report_header.asset_details.vessel",
         "imo": "report_header.asset_details.imo_number",
+
+    "SampleIdentification": {
+        "sampleNumber": "oil_analysis_results.samples[-1].sample_details.sample_number",
+        "bottleNumber": None,
+        "analysisNumber": None
+    },
+
+    "EquipmentInformation": {
+        "testLabExtracted": "report_header.report_provider_company",
         "customerCompany": None,
-        "machineryName": "oil_analysis_results.samples[].sample_details.machinery",
+        "machineryName": "oil_analysis_results.samples[-1].sample_details.machinery",
         "equipmentMake": None,
         "equipmentModel": None,
         "equipmentSerial": None,
         "sampleLocation": None,
         "machineryUnit": None,
         "portLanded": None,
-        "oilGrade": "oil_analysis_results.samples[].sample_details.product",
-        "analysisNumber": None
+        "oilGrade": "oil_analysis_results.samples[-1].sample_details.product",
+        "oilSystemCapacity": None
     },
     "Samples": [
         {
-    "SampleIdentification": {
         "sampleNumber": "oil_analysis_results.samples[].sample_details.sample_number",
-        "bottleNumber": None,
-    },
-            "DatesAndLocations": {
-                "sampleDate": "oil_analysis_results.samples[].sample_details.date_sampled",
-                "dateReported": None
-            },
+        "sampleDate": "oil_analysis_results.samples[].sample_details.date_sampled",
+        "dateReported": None,
+
             "OilAndOperatingConditions": {
                 "oilBrand": None,
                 "fuelGrade": None,
@@ -936,7 +959,6 @@ nof_field_map = {
                 "oilServiceHours": "oil_analysis_results.samples[].sample_details.running_time_since_last_oil_change_hrs",
                 "oilAddedVolume": None,
                 "dailyMakeupVolume": None,
-                "oilSystemCapacity": None,
                 "consumptionRate": None
             },
             "PhysicalAndChemicalProperties": {
@@ -970,7 +992,7 @@ nof_field_map = {
                 "copper": "oil_analysis_results.samples[].elements_mass_ppm.copper_cu",
                 "lead": "oil_analysis_results.samples[].elements_mass_ppm.lead_pb",
                 "tin": "oil_analysis_results.samples[].elements_mass_ppm.tin_sn",
-                "aluminum": "oil_analysis_results.samples[].elements_mass_ppm.aluminum_al",
+                "aluminum": "oil_analysis_results.samples[].elements_mass_ppm.aluminium_al",
                 "chromium": "oil_analysis_results.samples[].elements_mass_ppm.chromium_cr",
                 "nickel": "oil_analysis_results.samples[].elements_mass_ppm.nickel_ni",
                 "silver": "oil_analysis_results.samples[].elements_mass_ppm.silver_ag",
@@ -1015,10 +1037,18 @@ nof_field_map = {
 }
 
 mobilserv_field_map = {
-        "testLab": "report_header.report_provider_company",
-    "VesselAndEquipment": {
+        "testLab": "Mobil Serv",
         "vesselName": "report_header.account_information.name",
         "imo": "report_header.account_information.imo_reg_number",
+
+    "SampleIdentification": {
+        "sampleNumber": "report_header.sample_information.sample_id",
+        "bottleNumber": "report_header.sample_information.bottle_id",
+        "analysisNumber": None
+    },
+
+    "EquipmentInformation": {
+        "testLabExtracted": "report_header.report_provider_company",
         "customerCompany": "report_header.account_information.parent_account",
         "machineryName": "report_header.description",
         "equipmentMake": "report_header.equipment_information.manufacturer",
@@ -1026,20 +1056,15 @@ mobilserv_field_map = {
         "equipmentSerial": None,
         "sampleLocation": None,
         "machineryUnit": None,
-        "portLanded": "oil_analysis_results.samples[].sample_info.port_landed",
+        "portLanded": "oil_analysis_results.samples[-1].sample_info.port_landed",
         "oilGrade": "report_header.sample_information.tested_lubricant",
-        "analysisNumber": None
     },
     "Samples": [
         {
-    "SampleIdentification": {
-        "sampleNumber": "report_header.sample_information.sample_id",
-        "bottleNumber": "report_header.sample_information.bottle_id"
-    },
-            "DatesAndLocations": {
-                "sampleDate": "oil_analysis_results.samples[].sample_info.sampled_date",
-                "dateReported": "oil_analysis_results.samples[].sample_info.reported_date"
-            },
+        "sampleNumber": "oil_analysis_results.samples[].sample_info.sample_id",
+        "sampleDate": "oil_analysis_results.samples[].sample_info.sampled_date",
+        "dateReported": "oil_analysis_results.samples[].sample_info.reported_date",
+        
             "OilAndOperatingConditions": {
                 "oilBrand": None,
                 "fuelGrade": None,
@@ -1110,8 +1135,8 @@ mobilserv_field_map = {
         }
     ],
     "AnalysisResults": {
-        "oilRating": "oil_analysis_results.samples[].lubricant_properties.lubricant_rating",
-        "unitRating": "oil_analysis_results.samples[].lubricant_properties.equipment_rating",
+        "oilRating": "oil_analysis_results.samples[-1].lubricant_properties.lubricant_rating",
+        "unitRating": "oil_analysis_results.samples[-1].lubricant_properties.equipment_rating",
         "diagnosis": None,
         "recommendations": "report_header.recommendation_comments",
         "actionRequired": None,

@@ -10,6 +10,7 @@ report_header_concept = JsonObjectConcept(
         "overall_lubricant_condition": Union[int, float, str, None],
         "equipment_information": {
             "vessel_name": Union[str, None],
+            "vessel_imo": Union[int, None],
             "company": Union[int, float, str, None],
             "unit_name": Union[int, float, str, None],
             "unit_id": Union[int, float, str, None],
@@ -58,6 +59,7 @@ oil_analysis_results_concept = JsonObjectConcept(
                 },
                 "analysis": {
                     "visco_40c_mm2s": Union[int, float, str, None],
+                    "visco_100c_mm2s": Union[int, float, str, None],
                     "acid_number_mg_kohg": Union[int, float, str, None],
                     "water_content_percent_mass": Union[int, float, str, None],
                     "Chlorides": Union[int, float, str, None],
@@ -88,6 +90,7 @@ oil_analysis_results_concept = JsonObjectConcept(
                         "zinc_zn": Union[int, float, str, None],
                         "barium_ba": Union[int, float, str, None],
                         "calcium_ca": Union[int, float, str, None],
+                        "magnesium_mg": Union[int, float, str, None]
                     },
                 },
             }

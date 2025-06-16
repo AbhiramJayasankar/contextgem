@@ -64,7 +64,10 @@ oil_analysis_results_concept = JsonObjectConcept(
                     "sodium_ppm": Union[int, float, str, None],
                     "vanadium_ppm": Union[int, float, str, None],
                     "ir_nitration_au": Union[int, float, str, None],
+                    "ir_sulfation_au": Union[int, float, str, None],
+                    "ir_soot_au": Union[int, float, str, None],
                     "water_percent": Union[int, float, str, None],
+
                 },
                 "particle_count": {
                     "gt_4u": Union[int, float, str, None],
