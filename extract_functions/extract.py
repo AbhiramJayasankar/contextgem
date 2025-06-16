@@ -9,7 +9,7 @@ def process_image_and_extract_data(image_path, lab_name):
         from jsonobjectconept_schemas.castrol import report_header_concept, oil_analysis_results_concept
     elif lab_name == "chevron":
         from jsonobjectconept_schemas.chevron import report_header_concept, oil_analysis_results_concept
-    elif lab_name == "eneos":
+    elif lab_name == "enos":
         from jsonobjectconept_schemas.enos import report_header_concept, oil_analysis_results_concept
     elif lab_name == "gulf":
         from jsonobjectconept_schemas.gulf import report_header_concept, oil_analysis_results_concept
@@ -27,8 +27,14 @@ def process_image_and_extract_data(image_path, lab_name):
         from jsonobjectconept_schemas.nof import report_header_concept, oil_analysis_results_concept
     elif lab_name == "mobil":
         from jsonobjectconept_schemas.mobil import report_header_concept, oil_analysis_results_concept
+    elif lab_name == "maritec":
+        from jsonobjectconept_schemas.maritec import report_header_concept, oil_analysis_results_concept
+    elif lab_name == "marlab":
+        from jsonobjectconept_schemas.marlab import report_header_concept, oil_analysis_results_concept
+    elif lab_name == "shell":
+        from jsonobjectconept_schemas.shell import report_header_concept, oil_analysis_results_concept
     else:
-        raise ValueError("Invalid lab_name specified. Please choose from castrol, chevron, enos, gulf, total, tribocare, viswa, vps, nof, or mobil.")
+        raise ValueError("Invalid lab_name specified. Please choose from castrol, chevron, enos, gulf, total, tribocare, viswa, vps, nof, mobil, maritec, marlab, or shell.")
 
     doc_image = Image(mime_type="image/jpeg", base64_data=image_to_base64(image_path))
     doc = Document(images=[doc_image])
