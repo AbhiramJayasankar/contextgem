@@ -23,18 +23,33 @@ args = parser.parse_args()
 # Helper to run subprocess and handle errors
 pipeline_status = []
 def run_step(cmd, step_name):
+    """
+    Runs a command, streams its output live, and captures it for summary.
+    """
     print(f"\n=== {step_name} ===")
-    result = subprocess.run(cmd, capture_output=True, text=True)
-    print(result.stdout)
-    if result.stderr:
-        print(f"[stderr] {result.stderr}")
-    if result.returncode != 0:
-        print(f"\n[ERROR] Step '{step_name}' failed with exit code {result.returncode}.")
-        pipeline_status.append((step_name, False, result.stdout, result.stderr))
+    # Use Popen to run the process and stream output in real-time
+    process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, bufsize=1, universal_newlines=True)
+    
+    stdout_lines = []
+    
+    # Read and print output line-by-line as it's generated
+    for line in process.stdout:
+        print(line, end='')
+        stdout_lines.append(line)
+        
+    process.wait()
+    returncode = process.returncode
+    
+    # Join the captured lines for the final report
+    full_output = "".join(stdout_lines)
+
+    if returncode != 0:
+        print(f"\n[ERROR] Step '{step_name}' failed with exit code {returncode}.")
+        pipeline_status.append((step_name, False, full_output, "stderr mixed with stdout"))
         print("Pipeline stopped due to error.")
-        sys.exit(result.returncode)
+        sys.exit(returncode)
     else:
-        pipeline_status.append((step_name, True, result.stdout, result.stderr))
+        pipeline_status.append((step_name, True, full_output, ""))
 
 # Step 2: Data retrieval (downloads PDFs to ./pdfs)
 data_retrieval_cmd = [
