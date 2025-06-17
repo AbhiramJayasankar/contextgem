@@ -145,6 +145,20 @@ def extract_lab_report_provider_from_pdf(file_path):
 # Replace extract_lab_name_from_pdf with the new provider
 extract_lab_name_from_pdf = extract_lab_report_provider_from_pdf
 
+def extract_lab_from_s3_url(url: str):
+    """
+    Extracts the lab name from an S3 URL by parsing the segment after 'split/'.
+    """
+    try:
+        parts = url.split("split/")
+        if len(parts) > 1:
+            return parts[1].split("/")[0]  # Extract the lab name
+        return "Unknown"
+    except Exception as e:
+        print(f"Error extracting lab from S3 URL: {e}")
+        return "Unknown"
+
+
 def download_and_sort_pdf(url: str):
     try:
         file_name = os.path.basename(urlparse(url).path)
@@ -160,9 +174,17 @@ def download_and_sort_pdf(url: str):
             print(f"Downloaded to {temp_path}")
 
             # Classify and get canonical lab name
-            raw_lab_name = extract_lab_name_from_pdf(temp_path)
-            print(f"Raw lab name detected: '{raw_lab_name}'")
-            lab_name = get_canonical_lab_name(raw_lab_name)
+            if "shipsight.synergymarinegroup.com" in url or "Fast%20Report" in url:
+                print("USING CONTEXTGEN FOR LABNAME")
+                raw_lab_name = extract_lab_name_from_pdf(temp_path)
+                print(f"Raw lab name detected: '{raw_lab_name}'")
+                lab_name = get_canonical_lab_name(raw_lab_name)
+            else:
+                print("EXTRACTING LABNAME FORM S3 LINK")
+                raw_lab_name = extract_lab_from_s3_url(url)
+                lab_name = get_canonical_lab_name(raw_lab_name)
+                print(f"Lab name extracted from S3 URL: '{lab_name}'")
+
             final_dir = os.path.join(BASE_DOWNLOAD_DIR, lab_name)
             Path(final_dir).mkdir(parents=True, exist_ok=True)
 
@@ -179,6 +201,12 @@ def download_and_sort_pdf(url: str):
             print(f"Skipped non-PDF or failed request ({r.status_code}) for {url}")
     except Exception as e:
         print(f"Error downloading {url}: {e}")
+
+def normalize_url(url: str) -> str:
+    """
+    Replaces all backslashes in the URL with forward slashes.
+    """
+    return url.replace('\\', '/')
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Download and sort PDFs for given IMO numbers.")
@@ -233,5 +261,7 @@ if __name__ == "__main__":
         print(f"PDF link map saved to {PDF_LINK_MAP_PATH}")
     else:
         print("No PDFs downloaded, so no link map saved.")
+
+
 
 
