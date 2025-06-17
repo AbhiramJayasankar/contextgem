@@ -99,7 +99,7 @@ if __name__ == "__main__":
     # 1 = standard resolution (72 DPI)
     # 2 = double resolution (144 DPI)
     # 3 = triple resolution (216 DPI), etc.
-    resolution_zoom = 2
+    resolution_zoom = 3
 
     # Create dummy files and folders for demonstration if they don't exist
     if not os.path.exists(input_directory):

@@ -27,7 +27,7 @@ LAB_FIELD_MAPS = {
     "viswa": viswa_field_map,
     "vps": vps_field_map,
     "nof": nof_field_map,
-    "mobilserv": mobilserv_field_map,
+    "mobil": mobilserv_field_map,
 }
 
 def get_lab_name_from_path(path):
@@ -154,6 +154,14 @@ if os.path.exists(PDF_LINK_MAP_PATH):
 else:
     pdf_link_map = {}
 
+# # Helper function to capitalize only the first letter if not already uppercase
+# def smart_capitalize(lab_name):
+#     if len(lab_name) == 0:
+#         return lab_name
+#     if lab_name.isupper():
+#         return lab_name  # Already all caps, e.g., ENOS
+#     return lab_name[0].upper() + lab_name[1:]
+
 # Walk through all JSON files in extracted_jsons
 for root, dirs, files in os.walk(EXTRACTED_JSONS_DIR):
     for file in files:
@@ -163,12 +171,21 @@ for root, dirs, files in os.walk(EXTRACTED_JSONS_DIR):
                 data = json.load(f)
             lab_name = get_lab_name_from_path(json_path)
             report_folder = os.path.splitext(os.path.basename(json_path))[0]  # e.g., '11622704'
-            rel_pdf_path = os.path.join(lab_name.capitalize(), f"{report_folder}.pdf")
-            pdf_link = pdf_link_map.get(rel_pdf_path, None)
+            print(f"Lab name: {lab_name}")
+            rel_pdf_path = os.path.join(lab_name.lower(), f"{report_folder}.pdf")
+            print(f"Rel PDF path: {rel_pdf_path}")
+            pdf_info = pdf_link_map.get(rel_pdf_path, {})
+            pdf_link = pdf_info.get("url")
+            vessel_name_from_map = pdf_info.get("vesselName")
+            imo_from_map = pdf_info.get("imo")
             mapped = map_fields(lab_name, data)
             if mapped:
-                mapped["pdfLink"] = pdf_link
+                if imo_from_map is not None:
+                    mapped["imo"] = imo_from_map
+                if vessel_name_from_map is not None:
+                    mapped["vesselName"] = vessel_name_from_map
                 created_at = datetime.datetime.now(datetime.UTC)
+                mapped["pdfLink"] = pdf_link
                 mapped["createdAt"] = created_at
 
                 # Save to final_output/lab_name/filename
