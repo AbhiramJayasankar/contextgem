@@ -30,18 +30,18 @@ COLLECTION_NAME = "lube_oil_common_collection"
 
 # IMO_NUMBERS will be set from command line
 VALID_TESTLABS = [
-    "castrol", "chevron", "eneos", "gulf", "total",
-    "tribocare", "viswa", "vps", "nof", "mobilserv"
+    "Castrol", "Chevron", "ENOS", "Gulf", "Total",
+    "Tribocare", "Viswa", "VPS", "NOF", "MobilServ",
+    "Shell", "Marlab", "Maritec"
 ]
 LAB_ALIASES = {
-    "lubdiag": "total",
-    "lubmarine": "total",
-    "mobil serv": "mobilserv"
+    "LubDiag": "Total",
+    "Lubmarine": "Total",
+    "Mobil Serv": "MobilServ"
 }
 TIMEOUT = 10
 BASE_DOWNLOAD_DIR = "./pdfs"
 
-ALL_LABS = VALID_TESTLABS + list(LAB_ALIASES.keys())
     
 def get_canonical_lab_name(lab_name: str) -> str:
     """Convert lab name to its canonical form using aliases, with fuzzy matching (>=95%)."""
@@ -55,26 +55,35 @@ def get_canonical_lab_name(lab_name: str) -> str:
     for alias, canonical in LAB_ALIASES.items():
         if lab_name_lower == alias.lower():
             print(f"Converting alias '{lab_name}' to canonical name '{canonical}'")
-            return canonical
+            return canonical.lower()
     
     # If not an alias, check if it's a valid lab name (case-insensitive)
     for valid_lab in VALID_TESTLABS:
         if lab_name_lower == valid_lab.lower():
-            return valid_lab
+            return valid_lab.lower()
     
-    # Fuzzy match (>=95%)
-    close_matches = difflib.get_close_matches(lab_name_lower, VALID_TESTLABS, n=1, cutoff=0.95)
-    if close_matches:
-        print(f"Fuzzy-matched '{lab_name}' to '{close_matches[0]}'")
-        return close_matches[0]
-    
+    # 3. Fuzzy match against aliases and valid labs (all lowercase)
+    all_keys_lower = [name.lower() for name in VALID_TESTLABS + list(LAB_ALIASES.keys())]
+    match = difflib.get_close_matches(lab_name_lower, all_keys_lower, n=1, cutoff=0.95)
+    if match:
+        matched_name = match[0]
+        # If matched to an alias, return its canonical name
+        for alias, canonical in LAB_ALIASES.items():
+            if matched_name == alias.lower():
+                print(f"Fuzzy-matched '{lab_name}' to alias '{alias}' → canonical '{canonical}'")
+                return canonical.lower()
+        # Else, return matched valid lab name
+        print(f"Fuzzy-matched '{lab_name}' to valid lab '{matched_name}'")
+        return matched_name.lower()
+
     print(f"Warning: Unknown lab name '{lab_name}' - using as is")
-    return lab_name
+    return lab_name.lower()
 
 def extract_lab_report_provider_from_pdf(file_path):
     """
     Extracts the lab report provider from the top quarter of a PDF's first page.
     Uses OpenCV for image processing and contextgem for lab name extraction.
+    Retries once if 'Provider not found' is returned.
     """
     try:
         # Open PDF and get first page as image
@@ -117,9 +126,9 @@ def extract_lab_report_provider_from_pdf(file_path):
             name="lab_report_provider_company",
             llm_role="extractor_vision",
             description="""Name of the company that provided the report,
-            extracted from the company logo in the top section of the image
-            it should be one of these 10,
-            castrol,chevron,eneos,gulf,lubmarine,mobil,tribocare,viswa,vps,nof""",
+            extracted from the company logo in the top section
+            it should be one of these following labs:
+            castrol,chevron,eneos,gulf,lubmarine,mobil,tribocare,viswa,vps,nof,maritec,marlab,shell""",
         )
         
         doc.add_concepts([name_concept])
@@ -136,8 +145,14 @@ def extract_lab_report_provider_from_pdf(file_path):
         if extracted_concepts and extracted_concepts[0].extracted_items:
             return extracted_concepts[0].extracted_items[0].value
         else:
-            return "Provider not found"
-            
+            print("Provider not found, retrying extraction once...")
+            # Retry once
+            extracted_concepts = vlm.extract_concepts_from_document(doc)
+            if extracted_concepts and extracted_concepts[0].extracted_items:
+                return extracted_concepts[0].extracted_items[0].value
+            else:
+                return "Provider not found"
+                
     except Exception as e:
         print(f"Error processing PDF {file_path}: {e}")
         return "ERROR_PARSING"
@@ -221,14 +236,14 @@ if __name__ == "__main__":
 
     docs = []
     for imo in IMO_NUMBERS:
-        # found = list(collection.find({"imo": imo}))
-        found = collection.find_one({"imo": imo, "testLab": "ENOS"})
+        found = list(collection.find({"imo": imo}))
+        # found = collection.find_one({"imo": imo, "testLab": "Marlab"})
         if not found:
             print(f"No documents found for IMO: {imo}")
         else:
             print(f"Found {len(found)} documents for IMO {imo}")
-            # docs.extend(found)
-            docs.append(found)
+            docs.extend(found)
+            # docs.append(found)
 
     if not docs:
         print(f"No documents found for any IMO in list: {IMO_NUMBERS}")

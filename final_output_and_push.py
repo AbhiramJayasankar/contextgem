@@ -28,6 +28,9 @@ LAB_FIELD_MAPS = {
     "vps": vps_field_map,
     "nof": nof_field_map,
     "mobil": mobilserv_field_map,
+    "shell": shell_field_map,
+    "maritec": maritec_field_map,
+    "marlab": marlab_field_map,
 }
 
 def get_lab_name_from_path(path):

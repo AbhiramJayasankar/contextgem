@@ -1150,3 +1150,349 @@ mobilserv_field_map = {
         "dueStatus": None
     }
 }
+
+shell_field_map = {
+        "testLab": "Shell",
+
+    "SampleIdentification": {
+        "sampleNumber": "oil_analysis_results.samples[0].sample_details.sample_number",
+        "bottleNumber": None,
+        "analysisNumber": None
+    },
+
+    "EquipmentInformation": {
+        "testLabExtracted": "report_header.report_provider_company",
+        "vesselNameExtracted": "report_header.vessel_name",
+        "imoExtracted": "report_header.imo_number",
+        "customerCompany": "report_header.customer",
+        "machineryName": "report_header.equipment_component",
+        "equipmentMake": "report_header.manufacturer",
+        "equipmentModel": "report_header.model",
+        "equipmentSerial": None,
+        "sampleLocation": None,
+        "machineryUnit": None,
+        "portLanded": None,
+        "oilGrade": "report_header.registered_lubricant",
+    },
+    "Samples": [
+        {
+        "sampleNumber": "oil_analysis_results.samples[].sample_details.sample_number",
+        "sampleDate": "oil_analysis_results.samples[].sample_details.sample_date",
+        "dateReported": None,
+        
+            "OilAndOperatingConditions": {
+                "oilBrand": None,
+                "fuelGrade": "oil_analysis_results.samples[].usage_information.fuel_used",
+                "fuelSulfurContent": None,
+                "equipmentHours": "oil_analysis_results.samples[].usage_information.equipment_life_hours",
+                "oilServiceHours": "oil_analysis_results.samples[].usage_information.lubricant_life_hours",
+                "oilAddedVolume": "oil_analysis_results.samples[].usage_information.top_up_volume_litres",
+                "dailyMakeupVolume": None,
+                "oilSystemCapacity": None,
+                "consumptionRate": None
+            },
+            "PhysicalAndChemicalProperties": {
+                "appearance": None,
+                "color": None,
+                "viscosity40c": None,
+                "viscosity100c": "oil_analysis_results.samples[].physical_characteristics.viscosity_100c_cst",
+                "viscosityIndex": None,
+                "acidNumber": None,
+                "baseNumber": "oil_analysis_results.samples[].physical_characteristics.tbn_d2896_mg_koh_g",
+                "waterContent": "oil_analysis_results.samples[].contamination_analysis.water_content_percent",
+                "freeWater": None,
+                "chlorideContent": None,
+                "flashPoint": "oil_analysis_results.samples[].physical_characteristics.flash_point_setaflash_c",
+                "oxidationFtir": None,
+                "nitrationFtir": None,
+                "sootContent": None,
+                "pqIndex": "oil_analysis_results.samples[].wear_analysis.wpi_index"
+            },
+            "ParticleContamination": {
+                "particles4um": None,
+                "particles6um": None,
+                "particles14um": None,
+                "particles21um": None,
+                "particles38um": None,
+                "particles70um": None,
+                "isoCode": None
+            },
+            "WearElements": {
+                "iron": "oil_analysis_results.samples[].wear_analysis.iron_fe_ppm",
+                "copper": "oil_analysis_results.samples[].wear_analysis.copper_cu_ppm",
+                "lead": "oil_analysis_results.samples[].wear_analysis.lead_pb_ppm",
+                "tin": "oil_analysis_results.samples[].wear_analysis.tin_sn_ppm",
+                "aluminum": "oil_analysis_results.samples[].wear_analysis.aluminium_al_ppm",
+                "chromium": "oil_analysis_results.samples[].wear_analysis.chromium_cr_ppm",
+                "nickel": None,
+                "silver": None,
+                "molybdenum": "oil_analysis_results.samples[].additive_analysis.molybdenum_mo_ppm",
+                "titanium": None,
+                "manganese": None,
+                "antimony": None
+            },
+            "ContaminantElements": {
+                "silicon": "oil_analysis_results.samples[].contamination_analysis.silicon_si_ppm",
+                "sodium": "oil_analysis_results.samples[].contamination_analysis.sodium_na_ppm",
+                "potassium": None,
+                "boron": "oil_analysis_results.samples[].additive_analysis.boron_b_ppm",
+                "vanadium": "oil_analysis_results.samples[].wear_analysis.vanadium_v_ppm",
+                "lithium": None,
+                "cadmium": None
+            },
+            "AdditiveElements": {
+                "calcium": "oil_analysis_results.samples[].additive_analysis.calcium_ca_percent",
+                "magnesium": "oil_analysis_results.samples[].additive_analysis.magnesium_mg_ppm",
+                "zinc": "oil_analysis_results.samples[].additive_analysis.zinc_zn_percent",
+                "phosphorus": "oil_analysis_results.samples[].additive_analysis.phosphorus_p_percent",
+                "barium": "oil_analysis_results.samples[].additive_analysis.barium_ba_percent"
+            }
+        }
+    ],
+    "AnalysisResults": {
+        "oilRating": "report_header.diagnosis.status",
+        "unitRating": None,
+        "diagnosis": "report_header.diagnosis.remarks",
+        "recommendations": None,
+        "actionRequired": None,
+        "nextSampleDue": None,
+        "sampleFrequency": None
+    },
+    "QualityAndCompliance": {
+        "reportStatus": None,
+        "report ": None,
+        "frequency": None,
+        "dueStatus": None
+    }
+}
+
+
+maritec_field_map = {
+        "testLab": "Maritec",
+
+    "SampleIdentification": {
+        "sampleNumber": "oil_analysis_results.samples[-1].sample_metadata.report_number",
+        "bottleNumber": None,
+        "analysisNumber": None
+    },
+
+    "EquipmentInformation": {
+        "testLabExtracted": "report_header.report_provider",
+        "vesselNameExtracted": "report_header.vessel_name",
+        "imoExtracted": "report_header.vessel_imo",
+        "customerCompany": "report_header.recipient_company",
+        "machineryName": "report_header.component",
+        "equipmentMake": None,
+        "equipmentModel": None,
+        "equipmentSerial": None,
+        "sampleLocation": "oil_analysis_results.samples[-1].sample_metadata.sampling_location",
+        "machineryUnit": None,
+        "portLanded": "oil_analysis_results.samples[-1].sample_metadata.sent_from",
+        "oilGrade": "oil_analysis_results.samples[-1].sample_metadata.oil_brand_grade",
+    },
+    "Samples": [
+        {
+        "sampleNumber": "oil_analysis_results.samples[].sample_metadata.report_number",
+        "sampleDate": "oil_analysis_results.samples[].sample_metadata.sampling_date",
+        "dateReported": "oil_analysis_results.samples[].sample_metadata.report_date",
+        
+            "OilAndOperatingConditions": {
+                "oilBrand": None,
+                "fuelGrade": None,
+                "fuelSulfurContent": None,
+                "equipmentHours": "oil_analysis_results.samples[].sample_metadata.equipment_hours",
+                "oilServiceHours": "oil_analysis_results.samples[].sample_metadata.oil_service_hours",
+                "oilAddedVolume": None,
+                "dailyMakeupVolume": None,
+                "oilSystemCapacity":  "oil_analysis_results.samples[].sample_metadata.oil_volume_litres",
+                "consumptionRate": None
+            },
+            "PhysicalAndChemicalProperties": {
+                "appearance": None,
+                "color": None,
+                "viscosity40c": "oil_analysis_results.samples[].lube_oil_properties.kv40_cst",
+                "viscosity100c": "oil_analysis_results.samples[].lube_oil_properties.kv100_cst",
+                "viscosityIndex": "oil_analysis_results.samples[].lube_oil_properties.viscosity_index",
+                "acidNumber": "oil_analysis_results.samples[].lube_oil_properties.acid_number_mgkoh_g",
+                "baseNumber": "oil_analysis_results.samples[].lube_oil_properties.base_number_mgkoh_g",
+                "waterContent": "oil_analysis_results.samples[].lube_oil_properties.water_content_percent_w",
+                "freeWater": None,
+                "chlorideContent": None,
+                "flashPoint": "oil_analysis_results.samples[].lube_oil_properties.flash_point_pmcc_deg_c",
+                "oxidationFtir": None,
+                "nitrationFtir": None,
+                "sootContent": None,
+                "pqIndex": None
+            },
+            "ParticleContamination": {
+                "particles4um": None,
+                "particles6um": None,
+                "particles14um": None,
+                "particles21um": None,
+                "particles38um": None,
+                "particles70um": None,
+                "isoCode": None
+            },
+            "WearElements": {
+                "iron": "oil_analysis_results.samples[].spectrometric_analysis_mg_kg.iron",
+                "copper": "oil_analysis_results.samples[].spectrometric_analysis_mg_kg.copper",
+                "lead": "oil_analysis_results.samples[].spectrometric_analysis_mg_kg.lead",
+                "tin": "oil_analysis_results.samples[].spectrometric_analysis_mg_kg.tin",
+                "aluminum": "oil_analysis_results.samples[].spectrometric_analysis_mg_kg.aluminium",
+                "chromium": "oil_analysis_results.samples[].spectrometric_analysis_mg_kg.chromium",
+                "nickel": "oil_analysis_results.samples[].spectrometric_analysis_mg_kg.nickel",
+                "silver": "oil_analysis_results.samples[].spectrometric_analysis_mg_kg.silver",
+                "molybdenum": "oil_analysis_results.samples[].spectrometric_analysis_mg_kg.molybdenum",
+                "titanium": None,
+                "manganese": None,
+                "antimony": None
+            },
+            "ContaminantElements": {
+                "silicon": "oil_analysis_results.samples[].spectrometric_analysis_mg_kg.silicon",
+                "sodium": "oil_analysis_results.samples[].spectrometric_analysis_mg_kg.sodium",
+                "potassium": None,
+                "boron": "oil_analysis_results.samples[].spectrometric_analysis_mg_kg.boron",
+                "vanadium": "oil_analysis_results.samples[].spectrometric_analysis_mg_kg.vanadium",
+                "lithium": None,
+                "cadmium": None
+            },
+            "AdditiveElements": {
+                "calcium": "oil_analysis_results.samples[].spectrometric_analysis_mg_kg.calcium",
+                "magnesium": "oil_analysis_results.samples[].spectrometric_analysis_mg_kg.magnesium",
+                "zinc": "oil_analysis_results.samples[].spectrometric_analysis_mg_kg.zinc",
+                "phosphorus": "oil_analysis_results.samples[].spectrometric_analysis_mg_kg.phosphorus",
+                "barium": "oil_analysis_results.samples[].spectrometric_analysis_mg_kg.barium"
+            }
+        }
+    ],
+    "AnalysisResults": {
+        "oilRating": "oil_analysis_results.samples[-1].sample_metadata.status",
+        "unitRating": None,
+        "diagnosis": "oil_analysis_results.remarks.comment",
+        "recommendations": None,
+        "actionRequired": None,
+        "nextSampleDue": None,
+        "sampleFrequency": None
+    },
+    "QualityAndCompliance": {
+        "reportStatus": None,
+        "report ": None,
+        "frequency": None,
+        "dueStatus": None
+    }
+}
+
+marlab_field_map = {
+        "testLab": "Marlab",
+
+    "SampleIdentification": {
+        "sampleNumber": "oil_analysis_results.samples[-1].sample_information.lab_order_number",
+        "bottleNumber": None,
+        "analysisNumber": None
+    },
+
+    "EquipmentInformation": {
+        "testLabExtracted": "report_header.report_provider_company",
+        "vesselNameExtracted": "report_header.equipment_information.vessel_name",
+        "imoExtracted": "report_header.equipment_information.imo_number",
+        "customerCompany": "report_header.equipment_information.company_name",
+        "machineryName": "report_header.equipment_information.machinery_unit",
+        "equipmentMake": "report_header.equipment_information.equipment_make",
+        "equipmentModel": "report_header.equipment_information.equipment_model",
+        "equipmentSerial": None,
+        "sampleLocation": None,
+        "machineryUnit": None,
+        "portLanded": None,
+        "oilGrade": "report_header.equipment_information.product_name",
+    },
+    "Samples": [
+        {
+        "sampleNumber": "oil_analysis_results.samples[].sample_information.lab_order_number",
+        "sampleDate": "oil_analysis_results.samples[].sample_information.sampling_date",
+        "dateReported": "oil_analysis_results.samples[].sample_information.date_reported",
+        
+            "OilAndOperatingConditions": {
+                "oilBrand": None,
+                "fuelGrade": None,
+                "fuelSulfurContent": None,
+                "equipmentHours": "oil_analysis_results.samples[].usage_information.equipment_life_hours",
+                "oilServiceHours": "oil_analysis_results.samples[].usage_information.oil_life_hours",
+                "oilAddedVolume": "oil_analysis_results.samples[].usage_information.oil_added_l",
+                "dailyMakeupVolume": None,
+                "oilSystemCapacity": None,
+                "consumptionRate": None
+            },
+            "PhysicalAndChemicalProperties": {
+                "appearance": None,
+                "color": None,
+                "viscosity40c": None,
+                "viscosity100c": "oil_analysis_results.samples[].physical_properties.viscosity_40c_mm2_s",
+                "viscosityIndex": None,
+                "acidNumber": "oil_analysis_results.samples[].physical_properties.total_acid_number_mg_koh_g",
+                "baseNumber": None,
+                "waterContent": "oil_analysis_results.samples[].physical_properties.water_content_ppm",
+                "freeWater": None,
+                "chlorideContent": None,
+                "flashPoint": None,
+                "oxidationFtir": None,
+                "nitrationFtir": None,
+                "sootContent": None,
+                "pqIndex": "oil_analysis_results.samples[].physical_properties.pq_index_wpi"
+            },
+            "ParticleContamination": {
+                "particles4um": None,
+                "particles6um": None,
+                "particles14um": None,
+                "particles21um": None,
+                "particles38um": None,
+                "particles70um": None,
+                "isoCode": None
+            },
+            "WearElements": {
+                "iron": "oil_analysis_results.samples[].element_analysis_ppm.iron_ppm",
+                "copper": "oil_analysis_results.samples[].element_analysis_ppm.copper_ppm",
+                "lead": "oil_analysis_results.samples[].element_analysis_ppm.lead_ppm",
+                "tin": "oil_analysis_results.samples[].element_analysis_ppm.tin_ppm",
+                "aluminum": "oil_analysis_results.samples[].element_analysis_ppm.aluminium_ppm",
+                "chromium": "oil_analysis_results.samples[].element_analysis_ppm.chromium_ppm",
+                "nickel": "oil_analysis_results.samples[].element_analysis_ppm.nickel_ppm",
+                "silver": "oil_analysis_results.samples[].element_analysis_ppm.silver_ppm",
+                "molybdenum": "oil_analysis_results.samples[].element_analysis_ppm.molybdenum_ppm",
+                "titanium": None,
+                "manganese": None,
+                "antimony": None
+            },
+            "ContaminantElements": {
+                "silicon": "oil_analysis_results.samples[].element_analysis_ppm.silicon_ppm",
+                "sodium": "oil_analysis_results.samples[].element_analysis_ppm.sodium_ppm",
+                "potassium": None,
+                "boron": "oil_analysis_results.samples[].element_analysis_ppm.boron_ppm",
+                "vanadium": "oil_analysis_results.samples[].element_analysis_ppm.vanadium_ppm",
+                "lithium": None,
+                "cadmium": None
+            },
+            "AdditiveElements": {
+                "calcium": "oil_analysis_results.samples[].element_analysis_ppm.calcium_ppm",
+                "magnesium": "oil_analysis_results.samples[].element_analysis_ppm.magnesium_ppm",
+                "zinc": "oil_analysis_results.samples[].element_analysis_ppm.zinc_ppm",
+                "phosphorus": "oil_analysis_results.samples[].element_analysis_ppm.phosphorus_ppm",
+                "barium": "oil_analysis_results.samples[].element_analysis_ppm.barium_ppm"
+            }
+        }
+    ],
+    "AnalysisResults": {
+        "oilRating": "oil_analysis_results.samples[-1].usage_information.lubricant_condition",
+        "unitRating": None,
+        "diagnosis":  "oil_analysis_results.diagnosis_remarks.remarks",
+        "recommendations": None,
+        "actionRequired": None,
+        "nextSampleDue": None,
+        "sampleFrequency": None
+    },
+    "QualityAndCompliance": {
+        "reportStatus": None,
+        "report ": None,
+        "frequency": None,
+        "dueStatus": None
+    }
+}
