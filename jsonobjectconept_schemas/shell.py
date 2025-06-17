@@ -7,12 +7,15 @@ report_header_concept = JsonObjectConcept(
     description="""Extracts key customer, equipment, and diagnosis information from the top section of the Shell LubeAnalyst report.
     The diagnosis text is in a separate box.""",
     structure={
+        "vessel_name": Union[str, None],
+        "imo_number": Union[int, None],
         "report_provider_company": Union[int, float, str, None],
         "customer": Union[int, float, str, None],
         "site_or_vessel_name_code": Union[int, float, str, None],
         "lube_analyst_code": Union[int, float, str, None],
         "equipment_component": Union[int, float, str, None],
-        "manufacturer_model": Union[int, float, str, None],
+        "manufacturer": Union[int, float, str, None],
+        "model": Union[int, float, str, None],
         "registered_lubricant": Union[int, float, str, None],
         "diagnosis": {
             "status": Union[int, float, str, None],
