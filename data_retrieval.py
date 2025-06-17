@@ -30,7 +30,8 @@ COLLECTION_NAME = "lube_oil_common_collection"
 # IMO_NUMBERS will be set from command line
 VALID_TESTLABS = [
     "Castrol", "Chevron", "ENEOS", "Gulf", "Total",
-    "Tribocare", "Viswa", "VPS", "NOF", "MobilServ"
+    "Tribocare", "Viswa", "VPS", "NOF", "MobilServ",
+    "Shell","Marlab","Maritec"
 ]
 LAB_ALIASES = {
     "LUBDIAG": "Total",
@@ -110,9 +111,9 @@ def extract_lab_report_provider_from_pdf(file_path):
             name="lab_report_provider_company",
             llm_role="extractor_vision",
             description="""Name of the company that provided the report,
-            extracted from the company logo in the top section of the image
-            it should be one of these 10,
-            castrol,chevron,eneos,gulf,lubmarine,mobil,tribocare,viswa,vps,nof""",
+            extracted from the company logo in the top section,
+            it should be one of these:
+            castrol,chevron,eneos,gulf,lubmarine,mobil,tribocare,viswa,vps,nof,marlab,maritec,shell""",
         )
         
         doc.add_concepts([name_concept])
