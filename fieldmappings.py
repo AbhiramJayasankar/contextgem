@@ -1,15 +1,15 @@
 castrol_field_map = {
     "testLab": "Castrol",
-    "vesselName": "report_header.asset_details.vessel_or_asset",
-    "imo": "report_header.asset_details.imo_or_asset_number",
 
 "SampleIdentification":{
     "sampleNumber": "report_header.sample_identification.sample_number",
     "bottleNumber": "report_header.sample_identification.sample_label_ref",
     "analysisNumber": None},
 
-  "EquipmentInformation": {
+  "VesselAndEquipmentInformation": {
     "testLabExtracted": "report_header.report_provider_company",
+    "vesselNameExtracted": "report_header.asset_details.vessel_or_asset",
+    "imoExtracted": "report_header.asset_details.imo_or_asset_number",
     "customerCompany": "report_header.customer_name",
     "machineryName": "report_header.asset_details.machinery_description",
     "equipmentMake": "report_header.asset_details.manufacturer",
@@ -116,8 +116,6 @@ castrol_field_map = {
 
 chevron_field_map = {
     "testLab": "Chevron",
-    "vesselName": "report_header.vessel",
-    "imo": "report_header.imo",
 
 "SampleIdentification":{
     "sampleNumber": "oil_analysis_results.samples[-1].sample_logistics.request_no",
@@ -126,6 +124,8 @@ chevron_field_map = {
 
     "EquipmentInformation": {
         "testLabExtracted": "report_header.report_provider_company",
+        "vesselNameExtracted": "report_header.vessel",
+        "imoExtracted": "report_header.imo",
         "customerCompany": "report_header.customer",
         "machineryName": "report_header.system",
         "equipmentMake": None,
@@ -231,8 +231,6 @@ chevron_field_map = {
 
 eneos_field_map = {
         "testLab": "ENOS",
-        "vesselName": "report_header.equipment_information.vessel_name",
-        "imo": "report_header.equipment_information.imo_number",
 
     "SampleIdentification":{
         "sampleNumber": "oil_analysis_results.samples[-1].sample_information.lab_order_number",
@@ -241,6 +239,8 @@ eneos_field_map = {
 
     "EquipmentInformation": {
         "testLabExtracted": "report_header.report_provider_company",
+        "vesselNameExtracted": "report_header.equipment_information.vessel_name",
+        "imoExtracted": "report_header.equipment_information.imo_number",
         "customerCompany": "report_header.equipment_information.company_name",
         "machineryName": "report_header.equipment_information.machinery_unit",
         "equipmentMake": "report_header.equipment_information.equipment_make",
@@ -270,7 +270,7 @@ eneos_field_map = {
             },
             "PhysicalAndChemicalProperties": {
                 "appearance": None,
-                "color": "oil_analysis_results.samples[].usage_information.astm_color",
+                "color": "oil_analysis_results.samples[].oil_analysis.astm_color",
                 "viscosity40c": "oil_analysis_results.samples[].oil_analysis.viscosity_40c_mm2_s",
                 "viscosity100c": None,
                 "viscosityIndex": None,
@@ -347,8 +347,6 @@ eneos_field_map = {
 
 gulf_field_map = {
         "testLab": "Gulf",
-        "vesselName": "report_header.equipment_information.vessel_name",
-        "imo": "report_header.equipment_information.imo_number",
 
     "SampleIdentification": {
         "sampleNumber": "oil_analysis_results.samples[-1].sample_information.sample_no",
@@ -358,6 +356,8 @@ gulf_field_map = {
 
     "EquipmentInformation": {
         "testLabExtracted": "report_header.report_provider_company",
+        "vesselNameExtracted": "report_header.equipment_information.vessel_name",
+        "imoExtracted": "report_header.equipment_information.imo_number",
         "customerCompany": "report_header.equipment_information.customer_name",
         "machineryName": "report_header.equipment_information.machinery_unit",
         "equipmentMake": "report_header.equipment_information.equipment_make",
@@ -462,8 +462,6 @@ gulf_field_map = {
 
 total_field_map = {
         "testLab": "Total",
-        "vesselName": "report_header.equipment_information.vessel_name",
-        "imo": "report_header.equipment_information.imo", #Lubmarine reports do not contain IMO number
 
     "SampleIdentification": {
         "sampleNumber": "report_header.equipment_information.sample_no",
@@ -473,6 +471,8 @@ total_field_map = {
 
     "EquipmentInformation": {
         "testLabExtracted": "report_header.report_provider_company",
+        "vesselNameExtracted": "report_header.equipment_information.vessel_name",
+        "imoExtracted": "report_header.equipment_information.imo", #Lubmarine reports do not contain IMO number
         "customerCompany": "report_header.equipment_information.company",
         "machineryName": "report_header.equipment_information.unit_name",
         "equipmentMake": None,
@@ -578,8 +578,6 @@ total_field_map = {
 
 tribocare_field_map = {
     "testLab": "Tribocare",
-    "vesselName": "report_header.vessel_name",
-    "imo": "report_header.vessel_imo",  
 
   "SampleIdentification": {
     "sampleNumber": "oil_analysis_results.samples[0].sample_details.sample_no",
@@ -589,6 +587,8 @@ tribocare_field_map = {
 
   "EquipmentInformation": {
     "testLabExtracted": "report_header.report_provider_company",
+    "vesselNameExtracted": "report_header.vessel_name",
+    "imoExtracted": "report_header.vessel_imo",  
     "customerCompany": None,
     "machineryName": "report_header.machinery_name",
     "equipmentMake": "report_header.manufacturer_details.manufacturer",
@@ -693,8 +693,6 @@ tribocare_field_map = {
 
 viswa_field_map = {
     "testLab": "Viswa",
-    "vesselName": "report_header.customer_details.vessel",
-    "imo": "report_header.customer_details.imo_no",
 
     "SampleIdentification": {
         "sampleNumber": "oil_analysis_results.samples[0].general_details.report_id",
@@ -704,6 +702,8 @@ viswa_field_map = {
         
     "EquipmentInformation": {
         "testLabExtracted": "report_header.report_provider_company",
+        "vesselNameExtracted": "report_header.customer_details.vessel",
+        "imoExtracted": "report_header.customer_details.imo_no",
         "customerCompany": "report_header.customer_details.customer",
         "machineryName": "report_header.customer_details.equipment",
         "equipmentMake": None,
@@ -808,8 +808,6 @@ viswa_field_map = {
 
 vps_field_map = {
         "testLab": "VPS",
-        "vesselName": "report_header.vessel_name",
-        "imo": "report_header.vessel_imo",
 
     "SampleIdentification": {
         "sampleNumber": "oil_analysis_results.samples[0].test_results.sample_number",
@@ -819,6 +817,8 @@ vps_field_map = {
 
     "EquipmentInformation": {
         "testLabExtracted": "report_header.report_provider_company",
+        "vesselNameExtracted": "report_header.vessel_name",
+        "imoExtracted": "report_header.vessel_imo",
         "customerCompany": None,
         "machineryName": "report_header.part_name",
         "equipmentMake": "report_header.sample_details.manufacturer",
@@ -923,8 +923,6 @@ vps_field_map = {
 
 nof_field_map = {
         "testLab": "NOF",
-        "vesselName": "report_header.asset_details.vessel",
-        "imo": "report_header.asset_details.imo_number",
 
     "SampleIdentification": {
         "sampleNumber": "oil_analysis_results.samples[-1].sample_details.sample_number",
@@ -934,6 +932,8 @@ nof_field_map = {
 
     "EquipmentInformation": {
         "testLabExtracted": "report_header.report_provider_company",
+        "vesselNameExtracted": "report_header.asset_details.vessel",
+        "imoExtracted": "report_header.asset_details.imo_number",
         "customerCompany": None,
         "machineryName": "oil_analysis_results.samples[-1].sample_details.machinery",
         "equipmentMake": None,
@@ -1038,8 +1038,6 @@ nof_field_map = {
 
 mobilserv_field_map = {
         "testLab": "Mobil Serv",
-        "vesselName": "report_header.account_information.name",
-        "imo": "report_header.account_information.imo_reg_number",
 
     "SampleIdentification": {
         "sampleNumber": "report_header.sample_information.sample_id",
@@ -1049,6 +1047,8 @@ mobilserv_field_map = {
 
     "EquipmentInformation": {
         "testLabExtracted": "report_header.report_provider_company",
+        "vesselNameExtracted": "report_header.account_information.name",
+        "imoExtracted": "report_header.account_information.imo_reg_number",
         "customerCompany": "report_header.account_information.parent_account",
         "machineryName": "report_header.description",
         "equipmentMake": "report_header.equipment_information.manufacturer",
@@ -1061,7 +1061,7 @@ mobilserv_field_map = {
     },
     "Samples": [
         {
-        "sampleNumber": "oil_analysis_results.samples[].sample_info.sample_id",
+        "sampleNumber": "oil_analysis_results.samples[].sample_id",
         "sampleDate": "oil_analysis_results.samples[].sample_info.sampled_date",
         "dateReported": "oil_analysis_results.samples[].sample_info.reported_date",
         
