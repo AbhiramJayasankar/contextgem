@@ -16,6 +16,7 @@ import base64
 import cv2
 from contextgem import Document, DocumentLLM, StringConcept, image_to_base64, Image
 import json
+import difflib
 
 # === CONFIGURATION ===
 load_dotenv()
@@ -29,13 +30,13 @@ COLLECTION_NAME = "lube_oil_common_collection"
 
 # IMO_NUMBERS will be set from command line
 VALID_TESTLABS = [
-    "Castrol", "Chevron", "ENEOS", "Gulf", "Total",
-    "Tribocare", "Viswa", "VPS", "NOF", "MobilServ"
+    "castrol", "chevron", "eneos", "gulf", "total",
+    "tribocare", "viswa", "vps", "nof", "mobilserv"
 ]
 LAB_ALIASES = {
-    "LUBDIAG": "Total",
-    "lubmarine": "Total",
-    "Mobil Serv": "MobilServ"
+    "lubdiag": "total",
+    "lubmarine": "total",
+    "mobil serv": "mobilserv"
 }
 TIMEOUT = 10
 BASE_DOWNLOAD_DIR = "./pdfs"
@@ -43,10 +44,10 @@ BASE_DOWNLOAD_DIR = "./pdfs"
 ALL_LABS = VALID_TESTLABS + list(LAB_ALIASES.keys())
     
 def get_canonical_lab_name(lab_name: str) -> str:
-    """Convert lab name to its canonical form using aliases."""
+    """Convert lab name to its canonical form using aliases, with fuzzy matching (>=95%)."""
     if not lab_name:
         return "ERROR_PARSING"
-        
+    
     # Convert to lowercase for case-insensitive comparison
     lab_name_lower = lab_name.lower()
     
@@ -60,7 +61,13 @@ def get_canonical_lab_name(lab_name: str) -> str:
     for valid_lab in VALID_TESTLABS:
         if lab_name_lower == valid_lab.lower():
             return valid_lab
-            
+    
+    # Fuzzy match (>=95%)
+    close_matches = difflib.get_close_matches(lab_name_lower, VALID_TESTLABS, n=1, cutoff=0.95)
+    if close_matches:
+        print(f"Fuzzy-matched '{lab_name}' to '{close_matches[0]}'")
+        return close_matches[0]
+    
     print(f"Warning: Unknown lab name '{lab_name}' - using as is")
     return lab_name
 
@@ -132,7 +139,7 @@ def extract_lab_report_provider_from_pdf(file_path):
             return "Provider not found"
             
     except Exception as e:
-        print(f" Error processing PDF {file_path}: {e}")
+        print(f"Error processing PDF {file_path}: {e}")
         return "ERROR_PARSING"
 
 # Replace extract_lab_name_from_pdf with the new provider
@@ -185,9 +192,11 @@ def download_and_sort_pdf(url: str):
             os.rename(temp_path, final_path)
             print(f"Moved to {final_path} (Lab: {lab_name})")
 
-            # Save mapping from relative PDF path to URL
+            # Save mapping from relative PDF path to URL, vesselName, and imo
             rel_pdf_path = os.path.relpath(final_path, BASE_DOWNLOAD_DIR)
-            pdf_link_map[rel_pdf_path] = url
+            vessel_name = doc.get("vesselName") if doc else None
+            imo_val = doc.get("imo") if doc else None
+            pdf_link_map[rel_pdf_path] = {"url": url, "vesselName": vessel_name, "imo": imo_val}
         else:
             print(f"Skipped non-PDF or failed request ({r.status_code}) for {url}")
     except Exception as e:
@@ -208,17 +217,18 @@ if __name__ == "__main__":
     # === DB SETUP ===
     client = MongoClient(MONGO_URI)
     collection = client[DB_NAME][COLLECTION_NAME]
+    parsed_collection = client[DB_NAME]["parsed_lube_oil_reports"]
 
     docs = []
     for imo in IMO_NUMBERS:
-        found = list(collection.find({"imo": 1028669, "testLab": "Tribocare"}))
-        # found = collection.find_one({"imo": imo, "testLab": "Tribocare"})
+        # found = list(collection.find({"imo": imo}))
+        found = collection.find_one({"imo": imo, "testLab": "ENOS"})
         if not found:
             print(f"No documents found for IMO: {imo}")
         else:
             print(f"Found {len(found)} documents for IMO {imo}")
-            docs.extend(found)
-            # docs.append(found
+            # docs.extend(found)
+            docs.append(found)
 
     if not docs:
         print(f"No documents found for any IMO in list: {IMO_NUMBERS}")
@@ -228,11 +238,19 @@ if __name__ == "__main__":
 
     # === PROCESSING LOOP ===
     pdf_link_map = {}
+
+    def pdf_already_processed(imo, pdf_url):
+        # Check if a document with this IMO and pdfLink exists in parsed_lube_oil_reports
+        return parsed_collection.count_documents({"imo": imo, "pdfLink": pdf_url}) > 0
+
     for doc in docs:
+        imo = doc.get("imo")
         for url in doc.get("location", []):
             if isinstance(url, str) and url.startswith("http"):
-                normalized_url = normalize_url(url)
-                download_and_sort_pdf(normalized_url)
+                if pdf_already_processed(imo, url):
+                    print(f"PDF {url} for IMO {imo} already processed. Skipping.")
+                    continue
+                download_and_sort_pdf(url)
             else:
                 print(f"Invalid or empty URL skipped in doc {doc.get('_id')}")
 

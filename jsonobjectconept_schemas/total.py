@@ -61,6 +61,7 @@ oil_analysis_results_concept = JsonObjectConcept(
                     "visco_40c_mm2s": Union[int, float, str, None],
                     "visco_100c_mm2s": Union[int, float, str, None],
                     "acid_number_mg_kohg": Union[int, float, str, None],
+                    "base_number_mg_kohg": Union[int, float, str, None],
                     "water_content_percent_mass": Union[int, float, str, None],
                     "Chlorides": Union[int, float, str, None],
                     "pq_index": Union[int, float, str, None],
