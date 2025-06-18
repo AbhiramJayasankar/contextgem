@@ -20,7 +20,7 @@ FINAL_OUTPUT_DIR = "final_output"
 LAB_FIELD_MAPS = {
     "castrol": castrol_field_map,
     "chevron": chevron_field_map,
-    "eneos": eneos_field_map,
+    "enos": enos_field_map,
     "gulf": gulf_field_map,
     "total": total_field_map,
     "tribocare": tribocare_field_map,

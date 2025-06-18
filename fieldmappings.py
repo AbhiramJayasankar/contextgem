@@ -1,7 +1,7 @@
 castrol_field_map = {
     "testLab": "Castrol",
 
-"SampleIdentification":{
+"LatestLatestSampleIdentification":{
     "sampleNumber": "report_header.sample_identification.sample_number",
     "bottleNumber": "report_header.sample_identification.sample_label_ref",
     "analysisNumber": None},
@@ -117,7 +117,7 @@ castrol_field_map = {
 chevron_field_map = {
     "testLab": "Chevron",
 
-"SampleIdentification":{
+"LatestSampleIdentification":{
     "sampleNumber": "oil_analysis_results.samples[-1].sample_logistics.request_no",
     "bottleNumber": None,
     "analysisNumber": None},
@@ -229,10 +229,10 @@ chevron_field_map = {
 }
 
 
-eneos_field_map = {
+enos_field_map = {
         "testLab": "ENOS",
 
-    "SampleIdentification":{
+    "LatestSampleIdentification":{
         "sampleNumber": "oil_analysis_results.samples[-1].sample_information.lab_order_number",
         "bottleNumber": None,
         "analysisNumber": None},
@@ -348,7 +348,7 @@ eneos_field_map = {
 gulf_field_map = {
         "testLab": "Gulf",
 
-    "SampleIdentification": {
+    "LatestSampleIdentification": {
         "sampleNumber": "oil_analysis_results.samples[-1].sample_information.sample_no",
         "bottleNumber": "oil_analysis_results.samples[-1].sample_information.bottle_no",
         "analysisNumber": None
@@ -463,7 +463,7 @@ gulf_field_map = {
 total_field_map = {
         "testLab": "Total",
 
-    "SampleIdentification": {
+    "LatestSampleIdentification": {
         "sampleNumber": "report_header.equipment_information.sample_no",
         "bottleNumber": None,
         "analysisNumber": "report_header.equipment_information.analysis_no"
@@ -579,7 +579,7 @@ total_field_map = {
 tribocare_field_map = {
     "testLab": "Tribocare",
 
-  "SampleIdentification": {
+  "LatestSampleIdentification": {
     "sampleNumber": "oil_analysis_results.samples[0].sample_details.sample_no",
     "bottleNumber": "oil_analysis_results.samples[0].sample_details.bottle_no",
     "analysisNumber": None
@@ -694,7 +694,7 @@ tribocare_field_map = {
 viswa_field_map = {
     "testLab": "Viswa",
 
-    "SampleIdentification": {
+    "LatestSampleIdentification": {
         "sampleNumber": "oil_analysis_results.samples[0].general_details.report_id",
         "bottleNumber": "oil_analysis_results.samples[0].general_details.bottle_identification_no",
         "analysisNumber": None
@@ -809,7 +809,7 @@ viswa_field_map = {
 vps_field_map = {
         "testLab": "VPS",
 
-    "SampleIdentification": {
+    "LatestSampleIdentification": {
         "sampleNumber": "oil_analysis_results.samples[0].test_results.sample_number",
         "bottleNumber": None,
         "analysisNumber": None
@@ -924,14 +924,14 @@ vps_field_map = {
 nof_field_map = {
         "testLab": "NOF",
 
-    "SampleIdentification": {
+    "LatestSampleIdentification": {
         "sampleNumber": "oil_analysis_results.samples[-1].sample_details.sample_number",
         "bottleNumber": None,
         "analysisNumber": None
     },
 
     "EquipmentInformation": {
-        "testLabExtracted": "report_header.report_provider_company",
+        "testLabExtracted": "report_header.report_provider_details.report_provider_company",
         "vesselNameExtracted": "report_header.asset_details.vessel",
         "imoExtracted": "report_header.asset_details.imo_number",
         "customerCompany": None,
@@ -1039,7 +1039,7 @@ nof_field_map = {
 mobilserv_field_map = {
         "testLab": "Mobil Serv",
 
-    "SampleIdentification": {
+    "LatestSampleIdentification": {
         "sampleNumber": "report_header.sample_information.sample_id",
         "bottleNumber": "report_header.sample_information.bottle_id",
         "analysisNumber": None
@@ -1154,7 +1154,7 @@ mobilserv_field_map = {
 shell_field_map = {
         "testLab": "Shell",
 
-    "SampleIdentification": {
+    "LatestSampleIdentification": {
         "sampleNumber": "oil_analysis_results.samples[0].sample_details.sample_number",
         "bottleNumber": None,
         "analysisNumber": None
@@ -1270,7 +1270,7 @@ shell_field_map = {
 maritec_field_map = {
         "testLab": "Maritec",
 
-    "SampleIdentification": {
+    "LatestSampleIdentification": {
         "sampleNumber": "oil_analysis_results.samples[-1].sample_metadata.report_number",
         "bottleNumber": None,
         "analysisNumber": None
@@ -1385,7 +1385,7 @@ maritec_field_map = {
 marlab_field_map = {
         "testLab": "Marlab",
 
-    "SampleIdentification": {
+    "LatestSampleIdentification": {
         "sampleNumber": "oil_analysis_results.samples[-1].sample_information.lab_order_number",
         "bottleNumber": None,
         "analysisNumber": None
