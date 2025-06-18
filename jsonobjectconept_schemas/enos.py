@@ -54,6 +54,7 @@ oil_analysis_results_concept = JsonObjectConcept(
                 },
                 "oil_analysis": {
                     "viscosity_40c_mm2_s": Union[int, float, str, None],
+                    "viscosity_100c_mm2_s": Union[int, float, str, None],
                     "astm_color": Union[int, float, str, None],
                     "total_acid_number_mg_koh_g": Union[int, float, str, None],
                     "water_content_percent_w": Union[int, float, str, None],

@@ -50,6 +50,8 @@ oil_analysis_results_concept = JsonObjectConcept(
                     "viscosity_index": Union[int, float, str, None],
                     "oxidation": Union[int, float, str, None],
                     "acid_number": Union[int, float, str, None],
+                    "base_number": Union[int, float, str, None],
+                    "flash_point": Union[int, float, str, None]
                 },
                 "wear": {
                     "aluminium": Union[int, float, str, None],
@@ -62,6 +64,7 @@ oil_analysis_results_concept = JsonObjectConcept(
                     "molybdenum": Union[int, float, str, None],
                     "titanium": Union[int, float, str, None],
                     "manganese": Union[int, float, str, None],
+                    "pq_index": Union[int, float, str, None]
                 },
                 "contaminants": {
                     "water": Union[int, float, str, None],

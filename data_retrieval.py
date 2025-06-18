@@ -17,6 +17,8 @@ import cv2
 from contextgem import Document, DocumentLLM, StringConcept, image_to_base64, Image
 import json
 import difflib
+import urllib.parse
+import time
 
 # === CONFIGURATION ===
 load_dotenv()
@@ -30,14 +32,15 @@ COLLECTION_NAME = "lube_oil_common_collection"
 
 # IMO_NUMBERS will be set from command line
 VALID_TESTLABS = [
-    "Castrol", "Chevron", "ENOS", "Gulf", "Total",
+    "Castrol", "Chevron", "Gulf", "Total",
     "Tribocare", "Viswa", "VPS", "NOF", "MobilServ",
     "Shell", "Marlab", "Maritec"
 ]
 LAB_ALIASES = {
     "LubDiag": "Total",
     "Lubmarine": "Total",
-    "Mobil Serv": "MobilServ"
+    "Mobil Serv": "MobilServ",
+    "ENEOS": "ENOS"
 }
 TIMEOUT = 10
 BASE_DOWNLOAD_DIR = "./pdfs"
@@ -163,11 +166,17 @@ extract_lab_name_from_pdf = extract_lab_report_provider_from_pdf
 def extract_lab_from_s3_url(url: str):
     """
     Extracts the lab name from an S3 URL by parsing the segment after 'split/'.
+    Decodes URL-encoded characters and returns only the first word as the lab name.
     """
     try:
         parts = url.split("split/")
         if len(parts) > 1:
-            return parts[1].split("/")[0]  # Extract the lab name
+            name = parts[1].split("/")[0]  # Extract the lab name
+            name = urllib.parse.unquote(name)  # Decode URL-encoded characters
+            name = name.strip().lower()
+            final_name = name.split()[0]  # Take only the first word
+            print(f"FINAL lab name: {final_name}")
+            return final_name
         return "Unknown"
     except Exception as e:
         print(f"Error extracting lab from S3 URL: {e}")
@@ -195,7 +204,7 @@ def download_and_sort_pdf(url: str):
                 print(f"Raw lab name detected: '{raw_lab_name}'")
                 lab_name = get_canonical_lab_name(raw_lab_name)
             else:
-                print("EXTRACTING LABNAME FORM S3 LINK")
+                print("EXTRACTING LABNAME FROM S3 LINK")
                 raw_lab_name = extract_lab_from_s3_url(url)
                 lab_name = get_canonical_lab_name(raw_lab_name)
                 print(f"Lab name extracted from S3 URL: '{lab_name}'")
@@ -203,7 +212,10 @@ def download_and_sort_pdf(url: str):
             final_dir = os.path.join(BASE_DOWNLOAD_DIR, lab_name)
             Path(final_dir).mkdir(parents=True, exist_ok=True)
 
-            final_path = os.path.join(final_dir, file_name)
+            timestamp = int(time.time())
+            base, ext = os.path.splitext(file_name)
+            file_name_with_timestamp = f"{base}_{timestamp}{ext}"
+            final_path = os.path.join(final_dir, file_name_with_timestamp)
             os.rename(temp_path, final_path)
             print(f"Moved to {final_path} (Lab: {lab_name})")
 
@@ -237,7 +249,7 @@ if __name__ == "__main__":
     docs = []
     for imo in IMO_NUMBERS:
         found = list(collection.find({"imo": imo}))
-        # found = collection.find_one({"imo": imo, "testLab": "Marlab"})
+        # found = collection.find_one({"imo": imo, "testLab": "ENOS"})
         if not found:
             print(f"No documents found for IMO: {imo}")
         else:

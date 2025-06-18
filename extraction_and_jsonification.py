@@ -19,7 +19,7 @@ num_reports_saved = 0  # Track number of reports saved
 # Walk through the input directory structure
 for dirpath, dirnames, filenames in os.walk(root_input_directory):
     
-    image_files = [f for f in filenames if f.lower().endswith(('.png', '.jpg', '.jpeg'))]
+    image_files = sorted([f for f in filenames if f.lower().endswith(('.png', '.jpg', '.jpeg'))])
     if not image_files:
         continue
 
@@ -38,7 +38,7 @@ for dirpath, dirnames, filenames in os.walk(root_input_directory):
                 if "page_1" in filename.lower():
                     final_lab_name = "vps"
                 elif "page_2" in filename.lower():
-                    final_lab_name = "vps_2"
+                    final_lab_name = "vps_2" 
 
             print(f"  - Extracting from: {filename}...")
             
