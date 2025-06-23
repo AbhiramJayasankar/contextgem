@@ -182,9 +182,15 @@ def extract_lab_from_s3_url(url: str):
         print(f"Error extracting lab from S3 URL: {e}")
         return "Unknown"
 
+def normalize_url(url: str) -> str:
+    """
+    Replaces all backslashes in the URL with forward slashes.
+    """
+    return url.replace('\\', '/')
 
 def download_and_sort_pdf(url: str):
     try:
+        url = normalize_url(url)
         file_name = os.path.basename(urlparse(url).path)
         temp_path = os.path.join(BASE_DOWNLOAD_DIR, "__temp__", file_name)
         Path(os.path.dirname(temp_path)).mkdir(parents=True, exist_ok=True)
@@ -228,12 +234,6 @@ def download_and_sort_pdf(url: str):
             print(f"Skipped non-PDF or failed request ({r.status_code}) for {url}")
     except Exception as e:
         print(f"Error downloading {url}: {e}")
-
-def normalize_url(url: str) -> str:
-    """
-    Replaces all backslashes in the URL with forward slashes.
-    """
-    return url.replace('\\', '/')
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Download and sort PDFs for given IMO numbers.")
